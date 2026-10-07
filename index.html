@@ -1113,7 +1113,7 @@ footer .brand { color: #fff; }
       <div>
         <span class="pb-tag"><i></i>Live AI practice</span>
         <h2>The full app is live.</h2>
-        <p class="pb-lede">Create a free account and work through six full cases, five stages each. Every answer gets feedback in seconds, and your dashboard tracks five skills across every case you do.</p>
+        <p class="pb-lede">Create a free account and work through nine full cases across consulting, product and general management, five stages each. Every answer gets feedback in seconds, your dashboard scores you against your target role's bar, and CASECALL recommends cases, reading and AI-built cases for your weakest skills.</p>
         <div class="pb-actions">
           <a class="btn btn-grad" href="app.html#/signup">Start practising free</a>
           <a class="btn btn-ghost" href="app.html#/login">Sign in</a>
@@ -1347,8 +1347,8 @@ footer .brand { color: #fff; }
             <div class="field"><label for="fSize">Target track</label>
               <select id="fSize" name="track">
                 <option selected>Consulting</option>
-                <option>Product</option>
-                <option>Strategy and general management</option>
+                <option>Product management</option>
+                <option>General management</option>
                 <option>Not sure yet</option>
               </select>
             </div>
@@ -1594,7 +1594,7 @@ What’s the hardest part of case interviews for you: structuring, the maths, re
   }
 
   function renderSummary() {
-    var html = '<h3>Your evidence</h3><p class="q">Here’s what a manager would see from this handover.</p><div class="evidence-card">';
+    var html = '<h3>Your evidence</h3><p class="q">Here’s what an interviewer would see from this case.</p><div class="evidence-card">';
     scenario.forEach(function (s, k) {
       var f = s.options[state.first[k]], l = s.options[state.final[k]];
       var changed = state.first[k] !== state.final[k];

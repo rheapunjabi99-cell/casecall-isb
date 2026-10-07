@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CASECALL | Case interview practice for ISB students</title>
-<meta name="description" content="Practise interviewer-led case interviews with AI feedback at every stage, and track your readiness across five skills.">
+<meta name="description" content="Practise interviewer-led case interviews with AI feedback at every stage, track your readiness against your target role, and get cases built for your gaps.">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#11163A">
@@ -101,6 +101,46 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
 .ring div{width:118px;height:118px;border-radius:50%;background:var(--panel);display:grid;place-items:center;text-align:center}.ring b{font-size:34px;letter-spacing:-.03em;line-height:1}.ring small{color:var(--faint);font-size:12px}
 .tip{background:var(--warn2);border-radius:10px;padding:12px 14px;font-size:14px;margin-top:12px}.tip b{display:block;color:var(--warn);font-size:12px}
 @media(max-width:860px){.rep{grid-template-columns:1fr}}
+/* v2: roles, recommendations, progression */
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:9px}
+.mini-spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin 1s linear infinite;display:inline-block}
+.btn.line .mini-spin{border-color:var(--line);border-top-color:var(--brand)}
+.dhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.role{display:grid;gap:4px;min-width:260px;max-width:340px;margin-bottom:20px}.role label{font-weight:700;font-size:12.5px;color:var(--muted)}
+.role select{padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--panel);color:var(--text);font-weight:700}.role small{color:var(--faint);font-size:12px;line-height:1.4}
+.kpi .chip{margin-left:8px;vertical-align:4px}
+.sw{display:flex;gap:18px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line)}.sw small{display:block;font-weight:700;font-size:12px;color:var(--muted);margin-bottom:5px}.sw .chip{margin:0 4px 4px 0}
+.alias{font-style:normal;font-weight:600;color:var(--faint);font-size:12.5px}
+.barw{position:relative}.mk{position:absolute;top:-4px;width:3px;height:17px;border-radius:2px;background:var(--text);transform:translateX(-1.5px)}
+.srow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:5px}
+.spark{width:64px;height:18px;flex:none}.spark polyline{fill:none;stroke:var(--brand);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.lens{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.rec{margin-bottom:16px}.rec h4{margin:14px 0 6px;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--faint)}
+.why{margin:0 0 10px;font-weight:600}
+.tip2{background:var(--warn2);border-radius:10px;padding:10px 12px;font-size:13.5px}.tip2 b{display:block;color:var(--warn);font-size:12px}
+.rc{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.rc:last-of-type{border-bottom:0}.rc small{display:block;color:var(--faint);font-size:12px}
+.reads{list-style:none;padding:0;margin:0;display:grid;gap:8px}.reads li{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.reads a{font-weight:700;text-decoration:none;color:var(--brand)}.reads a:hover{text-decoration:underline}.reads small{display:block;color:var(--faint);font-size:12px}
+.kind{flex:none;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;background:var(--panel2);color:var(--muted);border-radius:6px;padding:3px 6px;margin-top:2px;min-width:58px;text-align:center}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}.two h4:first-child{margin-top:0}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.chart{position:relative}.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart .grid{stroke:var(--line);stroke-width:1}.chart .barline{stroke:var(--faint);stroke-width:1.5;stroke-dasharray:5 5}
+.chart .ax{fill:var(--faint);font-size:11.5px;font-family:var(--font)}.chart .ax.strong{fill:var(--muted);font-weight:700}
+.chart .ln{fill:none;stroke:var(--brand);stroke-width:2;stroke-linejoin:round}.chart .dot{fill:var(--brand);stroke:var(--panel);stroke-width:2}
+.chart .hit{fill:transparent;cursor:pointer}.chart .hit:focus{outline:none;stroke:#FFBE2E;stroke-width:2}
+.tipbox{position:absolute;transform:translate(-50%,-100%);background:var(--navy);color:#fff;border-radius:9px;padding:8px 10px;font-size:12.5px;pointer-events:none;max-width:220px;box-shadow:0 6px 18px rgba(0,0,0,.18)}.tipbox b{display:block;font-size:15px}.tipbox small{display:block;opacity:.7}
+table.hist{width:100%;border-collapse:collapse;font-size:14px}.hist th,.hist td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+.hist th{font-size:12px;color:var(--faint);font-weight:700;white-space:nowrap}.hist td a{font-weight:700;text-decoration:none}.hist td a:hover{color:var(--brand)}.hist td small{display:block;color:var(--faint);font-size:12px}
+.hist td:first-child{min-width:200px}.hist td:nth-child(2){white-space:nowrap}.hist .c{text-align:center}.hist tr:last-child td{border-bottom:0}.faint{color:var(--faint)}
+.sc{display:inline-grid;place-items:center;width:28px;height:24px;border-radius:7px;font-size:12.5px;font-weight:800}
+.sc.c-good{background:var(--good2);color:var(--good)}.sc.c-warn{background:var(--warn2);color:var(--warn)}.sc.c-bad{background:var(--bad2);color:var(--bad)}
+.filters.sk{align-items:center}.filters.sk span{font-weight:700;font-size:13px;color:var(--muted);margin-right:2px}.filters.sk button{font-size:12.5px;padding:5px 11px}
+.tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center}.tags small{font-size:11.5px;font-weight:700;color:var(--faint);margin-right:1px}.tags small:not(:first-child){margin-left:6px}
+.tag{font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}.tag.hot{border-color:var(--good);color:var(--good);background:var(--good2)}
+.customcard{border:1.5px dashed var(--brand);background:linear-gradient(160deg,var(--brand2),var(--panel) 60%)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 16px;border-radius:12px;font-weight:600;font-size:14px;z-index:50;max-width:min(92vw,520px);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+@media(max-width:640px){.role{min-width:0;max-width:none;width:100%}.kpi b{font-size:24px}}
 .foot-note{text-align:center;color:var(--faint);font-size:12px;margin-top:30px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition:none!important}}
 </style>
@@ -114,25 +154,38 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
   <button class="linkbtn" id="out" hidden type="button">Sign out</button>
 </div></header>
 <main class="wrap" id="view" aria-live="polite"></main>
+<div class="toast" id="toast" role="status" hidden></div>
 <p class="foot-note">CASECALL is an independent student project, not affiliated with ISB. It never predicts shortlists or offers. Practice cases use fictional companies.</p>
 
 <script>
 (function () {
   "use strict";
   var view = document.getElementById("view");
-  var S = { token: null, user: null, cases: null };
+  var S = { token: null, user: null, cases: null, me: null };
   try { S.token = localStorage.getItem("cc_token"); S.user = JSON.parse(localStorage.getItem("cc_user") || "null"); } catch (e) {}
   var VERDICT = { strong: ["Strong", "c-good"], partial: ["Partly there", "c-warn"], missed: ["Missed the key point", "c-bad"] };
-  var TYPECHIP = { "Profitability": "c-bad", "Market entry": "c-warn", "Pricing": "c-info", "Market sizing": "c-good", "Product diagnosis": "c-brand", "Operations": "c-mute" };
+  var TYPECHIP = { "Profitability": "c-bad", "Market entry": "c-warn", "Pricing": "c-info", "Market sizing": "c-good", "Product diagnosis": "c-brand", "Operations": "c-mute", "Prioritisation": "c-brand", "Experiment readout": "c-info", "Business unit turnaround": "c-warn", "Custom case": "c-brand" };
+  var TRACKS = ["Consulting", "Product management", "General management", "Not sure yet"];
+  var TRACK_SHORT = { "Consulting": "Consulting", "Product management": "Product", "General management": "General mgmt", "Not sure yet": "Any role" };
+  var LEGACY = { "Product": "Product management", "Strategy and general management": "General management" };
+  var SKILLS = ["Structuring", "Reading exhibits", "Quant and maths", "Hypothesis-driven thinking", "Synthesis and recommendation"];
+  var SKILL_SHORT = { "Structuring": "Structure", "Reading exhibits": "Exhibits", "Quant and maths": "Maths", "Hypothesis-driven thinking": "Problem solving", "Synthesis and recommendation": "Synthesis" };
+  var STATUS_CHIP = { "At the bar": "c-good", "At the bar, 1 case": "c-good", "Close": "c-warn", "Gap": "c-bad", "Not started": "c-mute" };
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]; }); }
   function $(sel, root) { return (root || document).querySelector(sel); }
   function loading(t) { view.innerHTML = '<div class="loading"><div><div class="spin"></div>' + esc(t || "Loading…") + "</div></div>"; }
   function errBox(m) { return '<div class="msg err">' + esc(m) + "</div>"; }
   function fmtDate(d) { try { return new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short" }); } catch (e) { return ""; } }
+  function col(v) { return v >= 80 ? "var(--good)" : v >= 60 ? "var(--brand)" : "var(--bad)"; }
+  function cls(v) { return v >= 80 ? "c-good" : v >= 60 ? "c-warn" : "c-bad"; }
+  function toast(m) {
+    var t = $("#toast"); t.textContent = m; t.hidden = false;
+    clearTimeout(toast.t); toast.t = setTimeout(function () { t.hidden = true; }, 6000);
+  }
 
   function save() { try { localStorage.setItem("cc_token", S.token || ""); localStorage.setItem("cc_user", JSON.stringify(S.user)); } catch (e) {} }
-  function signOut() { S.token = null; S.user = null; try { localStorage.removeItem("cc_token"); localStorage.removeItem("cc_user"); } catch (e) {} location.hash = "#/login"; }
+  function signOut() { S.token = null; S.user = null; S.me = null; try { localStorage.removeItem("cc_token"); localStorage.removeItem("cc_user"); } catch (e) {} location.hash = "#/login"; }
   document.getElementById("out").addEventListener("click", signOut);
 
   function api(path, opts) {
@@ -141,7 +194,7 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
     if (S.token) h.Authorization = "Bearer " + S.token;
     return fetch(path, { method: opts.method || (opts.body ? "POST" : "GET"), headers: h, body: opts.body ? JSON.stringify(opts.body) : undefined })
       .then(function (r) {
-        return r.json().catch(function () { return { error: "The server didn't respond properly. Please try again." }; }).then(function (d) {
+        return r.json().catch(function () { return { error: r.status === 504 ? "That took too long. Please try again." : "The server didn't respond properly. Please try again." }; }).then(function (d) {
           if (r.status === 401 && path !== "/api/auth") { signOut(); throw new Error(d.error || "Please sign in again."); }
           if (!r.ok) { var e = new Error(d.error || "Something went wrong."); e.data = d; throw e; }
           return d;
@@ -158,6 +211,39 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
     document.querySelectorAll("#nav a").forEach(function (a) { a.classList.toggle("on", a.dataset.r === route); });
   }
 
+  /* ---------------- Shared actions ---------------- */
+  function startCase(id, btn) {
+    if (btn) btn.disabled = true;
+    api("/api/attempt", { body: { action: "start", caseId: id } }).then(function (d) { location.hash = "#/case/" + d.attempt.id; })
+      .catch(function (e) { toast(e.message); if (btn) btn.disabled = false; });
+  }
+  function buildCustom(focus, btn) {
+    var label = btn ? btn.innerHTML : "";
+    document.querySelectorAll("[data-custom]").forEach(function (b) { b.disabled = true; });
+    if (btn) btn.innerHTML = '<span class="mini-spin"></span>Writing your case (about 20 seconds)…';
+    api("/api/attempt", { body: { action: "custom", focus: focus || undefined } }).then(function (d) { S.me = null; location.hash = "#/case/" + d.attempt.id; })
+      .catch(function (e) {
+        toast(e.message);
+        document.querySelectorAll("[data-custom]").forEach(function (b) { b.disabled = false; });
+        if (btn) btn.innerHTML = label;
+      });
+  }
+  function wire(root) {
+    root.querySelectorAll("[data-start]").forEach(function (b) { b.addEventListener("click", function () { startCase(b.dataset.start, b); }); });
+    root.querySelectorAll("[data-custom]").forEach(function (b) { b.addEventListener("click", function () { buildCustom(b.dataset.custom, b); }); });
+  }
+  function readingsHtml(list) {
+    if (!list || !list.length) return "";
+    return '<ul class="reads">' + list.map(function (r) {
+      var t = r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.title) + ' <span aria-hidden="true">↗</span></a>' : "<b>" + esc(r.title) + "</b>";
+      return '<li><span class="kind">' + esc(r.kind) + "</span><div>" + t + "<small>" + esc(r.source) + "</small></div></li>";
+    }).join("") + "</ul>";
+  }
+  function caseRowHtml(c) {
+    return '<div class="rc"><div><b>' + esc(c.title) + "</b><small>" + esc(c.type) + " · " + esc(c.difficulty) + " · " + c.minutes + " min" + (c.offTrack ? " · outside your role" : "") + (c.done ? " · best " + c.best + "/100" : "") + "</small></div>" +
+      '<button class="btn sm" type="button" data-start="' + esc(c.caseId) + '">' + (c.done ? "Again" : "Start") + "</button></div>";
+  }
+
   /* ---------------- Auth ---------------- */
   function renderAuth(mode) {
     chrome("auth");
@@ -165,85 +251,190 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
     view.innerHTML =
       '<div class="auth"><div class="pitch">' +
       '<h1>Frameworks get you started. <span>Judgement gets you the offer.</span></h1>' +
-      "<p>Practise interviewer-led case interviews for placements. Every stage gets feedback in seconds, and your readiness report tracks five skills across every case you do.</p>" +
-      "<ul><li><i>✓</i>Six full cases: profitability, market entry, pricing, sizing, product and operations</li><li><i>✓</i>Feedback on every answer, plus what a strong candidate would say</li><li><i>✓</i>Replay any stage, then watch your skills move to interview-ready</li></ul></div>" +
+      "<p>Practise interviewer-led case interviews for placements. Pick your target role, and CASECALL scores you against that role's bar, tells you what to fix, and builds cases aimed at your gaps.</p>" +
+      "<ul><li><i>✓</i>Nine full cases across consulting, product and general management</li><li><i>✓</i>Feedback on every answer, plus what a strong candidate would say</li><li><i>✓</i>Recommendations, reading and AI-built cases for your weakest skills</li></ul></div>" +
       '<div class="panel pb" style="padding:24px"><div class="tabs" role="tablist"><button type="button" data-m="signup" class="' + (mode === "signup" ? "on" : "") + '">Create account</button><button type="button" data-m="login" class="' + (mode === "login" ? "on" : "") + '">Sign in</button></div>' +
       '<form id="af" novalidate>' +
       (mode === "signup" ? '<div class="field"><label for="an">Your name</label><input id="an" autocomplete="name" required></div>' : "") +
       '<div class="field"><label for="ae">ISB email</label><input id="ae" type="email" autocomplete="email" placeholder="name_pgp2027@isb.edu" required></div>' +
       '<div class="field"><label for="ap">Password</label><input id="ap" type="password" autocomplete="' + (mode === "signup" ? "new-password" : "current-password") + '" minlength="8" placeholder="At least 8 characters" required></div>' +
-      (mode === "signup" ? '<div class="field"><label for="at">Target track</label><select id="at"><option>Consulting</option><option>Product</option><option>Strategy and general management</option><option>Not sure yet</option></select></div>' : "") +
+      (mode === "signup" ? '<div class="field"><label for="at">Target role</label><select id="at">' + TRACKS.map(function (t) { return "<option>" + t + "</option>"; }).join("") + "</select></div>" : "") +
       '<div id="aerr"></div><button class="btn grad" type="submit" style="width:100%;margin-top:4px">' + (mode === "signup" ? "Create account and start" : "Sign in") + "</button>" +
       '<p class="fine">Free during the pilot. Your answers are stored to power your progress report. Don\'t include names or contact details in answers.</p></form></div></div>';
     view.querySelectorAll(".tabs button").forEach(function (b) { b.addEventListener("click", function () { location.hash = b.dataset.m === "login" ? "#/login" : "#/signup"; }); });
-    if (mode === "signup") { try { var pf = JSON.parse(localStorage.getItem("cc_prefill") || "null"); if (pf) { $("#an").value = pf.name || ""; $("#ae").value = pf.email || ""; if (pf.track) $("#at").value = pf.track; } } catch (e3) {} }
+    if (mode === "signup") { try { var pf = JSON.parse(localStorage.getItem("cc_prefill") || "null"); if (pf) { $("#an").value = pf.name || ""; $("#ae").value = pf.email || ""; var tr = LEGACY[pf.track] || pf.track; if (TRACKS.indexOf(tr) >= 0) $("#at").value = tr; } } catch (e3) {} }
     $("#af").addEventListener("submit", function (e) {
       e.preventDefault();
       var btn = e.target.querySelector("button[type=submit]"); btn.disabled = true;
       var payload = { action: mode, email: $("#ae").value.trim(), password: $("#ap").value };
       if (mode === "signup") { payload.name = $("#an").value.trim(); payload.track = $("#at").value; }
       api("/api/auth", { body: payload }).then(function (d) {
-        S.token = d.token; S.user = d.user; save(); location.hash = mode === "signup" ? "#/cases" : "#/";
+        S.token = d.token; S.user = d.user; save(); location.hash = "#/";
       }).catch(function (er) { $("#aerr").innerHTML = errBox(er.message) + "<div style='height:10px'></div>"; btn.disabled = false; });
     });
+  }
+
+  /* ---------------- Charts ---------------- */
+  function lineChart(points, bar, width) {
+    var W = Math.max(300, Math.round(width || 640)), H = W < 500 ? 200 : 240, L = 34, R = 14, T = 26, B = 26, n = points.length;
+    var x = function (i) { return n === 1 ? (L + W - R) / 2 : L + i * (W - L - R) / (n - 1); };
+    var y = function (v) { return T + (100 - v) * (H - T - B) / 100; };
+    var g = "";
+    [0, 50, 100].forEach(function (v) { g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '" class="grid"/><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end" class="ax">' + v + "</text>"; });
+    if (bar) g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(bar) + '" y2="' + y(bar) + '" class="barline"/><text x="' + (W - R) + '" y="' + (y(bar) - 6) + '" text-anchor="end" class="ax strong">Your role\'s bar · ' + bar + "</text>";
+    var path = points.map(function (p, i) { return (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p.overall).toFixed(1); }).join(" ");
+    if (n > 1) g += '<path d="' + path + '" class="ln"/>';
+    points.forEach(function (p, i) {
+      g += '<circle cx="' + x(i) + '" cy="' + y(p.overall) + '" r="5" class="dot"/>';
+      g += '<circle cx="' + x(i) + '" cy="' + y(p.overall) + '" r="16" class="hit" tabindex="0" data-i="' + i + '"><title>' + esc(p.title) + ": " + p.overall + "/100</title></circle>";
+    });
+    var lastI = n - 1;
+    g += '<text x="' + x(lastI) + '" y="' + (y(points[lastI].overall) - 12) + '" text-anchor="' + (n === 1 ? "middle" : "end") + '" class="ax strong">' + points[lastI].overall + "</text>";
+    [0, lastI].filter(function (v, i, a) { return a.indexOf(v) === i; }).forEach(function (i) {
+      g += '<text x="' + x(i) + '" y="' + (H - 6) + '" text-anchor="' + (n === 1 ? "middle" : i ? "end" : "start") + '" class="ax">Case ' + (i + 1) + " · " + fmtDate(points[i].completed_at) + "</text>";
+    });
+    return '<div class="chart"><svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Overall score for each completed case, oldest to newest">' + g + '</svg><div class="tipbox" hidden></div></div>';
+  }
+  function wireChart(root, points) {
+    var box = root.querySelector(".chart"); if (!box) return;
+    var tip = box.querySelector(".tipbox"), svg = box.querySelector("svg");
+    function show(el) {
+      var p = points[+el.dataset.i], r = el.getBoundingClientRect(), b = box.getBoundingClientRect();
+      tip.innerHTML = "<b>" + p.overall + "/100</b>" + esc(p.title) + "<small>" + fmtDate(p.completed_at) + "</small>";
+      tip.hidden = false;
+      var left = r.left - b.left + r.width / 2; tip.style.left = Math.max(70, Math.min(b.width - 70, left)) + "px"; tip.style.top = (r.top - b.top - 8) + "px";
+    }
+    svg.querySelectorAll(".hit").forEach(function (h) {
+      h.addEventListener("mouseenter", function () { show(h); }); h.addEventListener("focus", function () { show(h); });
+      h.addEventListener("mouseleave", function () { tip.hidden = true; }); h.addEventListener("blur", function () { tip.hidden = true; });
+      h.addEventListener("click", function () { location.hash = "#/report/" + points[+h.dataset.i].id; });
+    });
+  }
+  function spark(vals) {
+    if (!vals || vals.length < 2) return "";
+    var W = 64, H = 18, n = vals.length;
+    var pts = vals.map(function (v, i) { return (i * (W - 4) / (n - 1) + 2).toFixed(1) + "," + (H - 2 - v * (H - 4) / 100).toFixed(1); }).join(" ");
+    return '<svg class="spark" viewBox="0 0 ' + W + " " + H + '" aria-hidden="true"><polyline points="' + pts + '"/></svg>';
   }
 
   /* ---------------- Dashboard ---------------- */
   function renderDash() {
     chrome("dash"); loading("Loading your progress…");
     api("/api/me").then(function (d) {
-      S.user = d.user; save(); chrome("dash");
-      var k = d.kpis, first = (d.user.name || "").split(" ")[0];
-      var html = '<h1 class="h1">Hi ' + esc(first) + "</h1><p class='sub'>" + (k.casesCompleted ? "Here's where your case prep stands." : "Let's do your first case. It takes about 20 minutes.") + "</p>";
-      html += '<div class="kpis"><div class="kpi"><small>Cases completed</small><b>' + k.casesCompleted + '</b></div><div class="kpi"><small>Average score</small><b>' + (k.avgScore == null ? "–" : k.avgScore) + '</b></div><div class="kpi"><small>Interview-ready skills</small><b>' + k.readySkills + ' / 5</b></div><div class="kpi"><small>Minutes practised</small><b>' + k.minutes + "</b></div></div>";
-      html += '<div class="dash"><section class="panel"><div class="ph"><h3>Your five skills</h3><span class="chip c-mute">Average of your last 3 cases</span></div><div class="pb">';
+      S.me = d; S.user = d.user; save(); chrome("dash");
+      var k = d.kpis, first = (d.user.name || "").split(" ")[0], track = d.track;
+      var html = '<div class="dhead"><div><h1 class="h1">Hi ' + esc(first) + "</h1><p class='sub'>" + (k.casesCompleted ? "Here's how you compare with the bar for your target role." : "Do your first case to set your baseline. It takes about 20 minutes.") + "</p></div>" +
+        '<div class="role"><label for="role">Target role</label><select id="role">' + TRACKS.map(function (t) { return "<option" + (t === track ? " selected" : "") + ">" + t + "</option>"; }).join("") + "</select><small>" + esc(d.trackBlurb) + "</small></div></div>";
+
+      html += '<div class="kpis">' +
+        '<div class="kpi"><small>Cases completed</small><b>' + k.casesCompleted + "</b></div>" +
+        '<div class="kpi"><small>Average score</small><b>' + (k.avgScore == null ? "–" : k.avgScore) + "</b>" + (k.change != null ? '<span class="chip ' + (k.change >= 0 ? "c-good" : "c-bad") + '">' + (k.change >= 0 ? "+" : "") + k.change + " vs first 3</span>" : "") + "</div>" +
+        '<div class="kpi"><small>' + esc(TRACK_SHORT[track]) + " readiness</small><b>" + (k.readiness == null ? "–" : k.readiness + "%") + "</b></div>" +
+        '<div class="kpi"><small>Skills at the bar</small><b>' + k.atBar + " / 5</b></div></div>";
+
+      // Skills vs bar
+      html += '<div class="dash"><section class="panel"><div class="ph"><h3>Your skills vs the ' + esc(track === "Not sure yet" ? "general" : TRACK_SHORT[track]) + ' bar</h3><span class="chip c-mute">Last 3 cases</span></div><div class="pb">';
+      if (d.strengths.length || d.gaps.length) {
+        html += '<div class="sw">' + (d.strengths.length ? '<div><small>Strengths</small>' + d.strengths.map(function (s) { return '<span class="chip c-good">' + esc(SKILL_SHORT[s]) + "</span>"; }).join(" ") + "</div>" : "") +
+          (d.gaps.length ? '<div><small>Biggest gaps for this role</small>' + d.gaps.map(function (s) { return '<span class="chip c-bad">' + esc(SKILL_SHORT[s]) + "</span>"; }).join(" ") + "</div>" : "") + "</div>";
+      }
       d.skills.forEach(function (s) {
-        var chip = s.status === "Interview-ready" ? "c-good" : (s.status === "Practising" ? "c-warn" : "c-mute");
-        var col = s.avg >= 80 ? "var(--good)" : (s.avg >= 50 ? "var(--brand)" : "var(--bad)");
-        html += '<div class="skill"><div class="skill-top"><span>' + esc(s.name) + '</span><span class="chip ' + chip + '">' + esc(s.status) + "</span></div>" +
-          '<div class="bar"><i style="width:' + (s.avg || 0) + "%;background:" + col + '"></i></div><small>' + (s.avg == null ? "No cases yet" : s.avg + " / 100 · " + s.reps + (s.reps === 1 ? " case" : " cases")) + "</small></div>";
+        html += '<div class="skill"><div class="skill-top"><span>' + esc(s.name) + (s.name === "Hypothesis-driven thinking" ? ' <em class="alias">(problem solving)</em>' : "") + '</span><span class="chip ' + (STATUS_CHIP[s.status] || "c-mute") + '">' + esc(s.status) + "</span></div>" +
+          '<div class="barw"><div class="bar"><i style="width:' + (s.avg || 0) + "%;background:" + (s.avg == null ? "transparent" : s.gap <= 0 ? "var(--good)" : s.gap <= 10 ? "var(--brand)" : "var(--bad)") + '"></i></div><span class="mk" style="left:' + s.target + '%" title="Bar for your role: ' + s.target + '"></span></div>' +
+          '<div class="srow"><small>' + (s.avg == null ? "No cases yet · bar " + s.target : s.avg + " / 100 · bar " + s.target + " · " + s.reps + (s.reps === 1 ? " case" : " cases")) + "</small>" + spark(s.trend) + "</div>" +
+          (s.lens ? '<p class="lens">' + esc(s.lens) + "</p>" : "") + "</div>";
       });
-      html += '<p class="fine">A skill becomes interview-ready when it averages 80 or more across at least two recent cases.</p></div></section><div>';
-      html += '<div class="next"><small>Practise next</small><h3>' + esc(d.practiseNext.title) + "</h3><p>" + (d.practiseNext.focus ? "Focus on " + esc(d.practiseNext.focus) + ", your lowest skill right now." : "A good first case to set your baseline.") + '</p><button class="btn grad" type="button" data-start="' + esc(d.practiseNext.caseId) + '">Start this case</button></div>';
-      html += '<section class="panel"><div class="ph"><h3>Your cases</h3><a class="chip c-brand" href="#/cases" style="text-decoration:none">Case library</a></div><div class="pb">';
-      if (!d.attempts.length) html += '<p style="margin:0;color:var(--muted)">No cases yet. Your history will appear here.</p>';
-      d.attempts.slice(0, 8).forEach(function (a) {
-        var href = a.completed_at ? "#/report/" + a.id : "#/case/" + a.id;
-        html += '<div class="att"><div><a href="' + href + '">' + esc(a.title) + "</a><small>" + fmtDate(a.started_at) + (a.completed_at ? "" : " · In progress") + "</small></div>" +
-          (a.completed_at ? '<span class="chip ' + (a.overall >= 80 ? "c-good" : a.overall >= 50 ? "c-warn" : "c-bad") + '">' + a.overall + " / 100</span>" : '<a class="chip c-brand" style="text-decoration:none" href="' + href + '">Resume</a>') + "</div>";
+      html += '<p class="fine">The black tick is the bar for your target role. A skill is at the bar when it averages at or above it across at least two recent cases. Change your role above to see a different bar.</p></div></section>';
+
+      // Recommendations
+      html += "<div>";
+      var foc = d.recommendations.map(function (r) { return SKILL_SHORT[r.skill].toLowerCase(); }).join(" and ");
+      html += '<div class="next"><small>Custom case</small><h3>A fresh case built for your ' + (d.focusMode === "gap" ? "gaps" : "role") + "</h3><p>AI writes a new " + esc(track === "Not sure yet" ? "" : TRACK_SHORT[track].toLowerCase() + " ") + "case centred on " + esc(foc) + ", with an exhibit, maths, a twist and feedback at every stage.</p>" +
+        '<button class="btn grad" type="button" data-custom="">Build my custom case</button></div>';
+      d.recommendations.forEach(function (r, i) {
+        html += '<section class="panel rec"><div class="ph"><h3>' + (d.focusMode === "baseline" ? "Start with " : d.focusMode === "stretch" ? "Stretch: " : "Work on ") + esc(r.skill) + "</h3>" + (r.gap > 0 ? '<span class="chip c-bad">' + r.gap + " below the bar</span>" : '<span class="chip c-mute">#' + (i + 1) + "</span>") + "</div><div class=\"pb\">" +
+          '<p class="why">' + esc(r.why) + "</p>" +
+          '<div class="tip2"><b>Practise this</b>' + esc(r.tip) + "</div>" +
+          '<h4>Cases that train it</h4>' + r.cases.map(caseRowHtml).join("") +
+          '<h4>Read or listen</h4>' + readingsHtml(r.readings) +
+          '<button class="btn line sm" type="button" data-custom="' + esc(r.skill) + '" style="margin-top:6px">Build a custom case on ' + esc(SKILL_SHORT[r.skill].toLowerCase()) + "</button></div></section>";
       });
-      html += "</div></section></div></div>";
+      html += "</div></div>";
+
+      // Progression
+      if (d.progression.length) {
+        html += '<section class="panel" style="margin-top:16px"><div class="ph"><h3>Your progression</h3><span class="chip c-mute">Overall score per case</span></div><div class="pb">' +
+          '<div id="chartslot"></div>' +
+          (d.progression.length < 2 ? '<p class="fine">Finish another case to see your trend.</p>' : "") + "</div></section>";
+      }
+
+      // All cases
+      html += '<section class="panel" style="margin-top:16px"><div class="ph"><h3>All your cases</h3><a class="chip c-brand" href="#/cases" style="text-decoration:none">Case library</a></div>';
+      if (!d.attempts.length) html += '<div class="pb"><p style="margin:0;color:var(--muted)">No cases yet. Every case you do will appear here with its ratings.</p></div>';
+      else {
+        html += '<div class="tbl"><table class="hist"><thead><tr><th>Case</th><th>Date</th>' + SKILLS.map(function (s) { return '<th class="c">' + esc(SKILL_SHORT[s]) + "</th>"; }).join("") + '<th class="c">Overall</th><th></th></tr></thead><tbody>';
+        d.attempts.forEach(function (a) {
+          var href = a.completed_at ? "#/report/" + a.id : "#/case/" + a.id;
+          html += "<tr><td><a href=\"" + href + '">' + esc(a.title) + "</a><small>" + esc(a.type) + (a.custom ? "" : " · " + esc(a.domains.map(function (t) { return TRACK_SHORT[t]; }).join(", "))) + "</small></td><td>" + fmtDate(a.started_at) + "</td>" +
+            SKILLS.map(function (s) {
+              var v = a.skills && a.skills[s];
+              return '<td class="c">' + (typeof v === "number" ? '<span class="sc ' + cls(v) + '" title="' + esc(s) + ": " + v / 20 + '/5">' + v / 20 + "</span>" : '<span class="faint">–</span>') + "</td>";
+            }).join("") +
+            '<td class="c">' + (a.completed_at ? '<span class="chip ' + cls(a.overall) + '">' + a.overall + "</span>" : '<span class="chip c-brand">In progress</span>') + "</td>" +
+            '<td class="c"><a class="chip c-mute" style="text-decoration:none" href="' + href + '">' + (a.completed_at ? "Report" : "Resume") + "</a></td></tr>";
+        });
+        html += '</tbody></table></div><p class="fine" style="padding:0 16px 14px;margin:8px 0 0">Stage scores are out of 5; overall is out of 100.</p>';
+      }
+      html += "</section>";
+
       view.innerHTML = html;
-      view.querySelectorAll("[data-start]").forEach(function (b) { b.addEventListener("click", function () { startCase(b.dataset.start, b); }); });
+      var slot = $("#chartslot");
+      if (slot) {
+        var roleBar = Math.round(d.skills.reduce(function (a, s) { return a + s.target; }, 0) / 5);
+        var drawChart = function () { slot.innerHTML = lineChart(d.progression, roleBar, slot.clientWidth); wireChart(view, d.progression); };
+        drawChart();
+        var rw = slot.clientWidth;
+        window.onresize = function () { if (document.body.contains(slot) && Math.abs(slot.clientWidth - rw) > 40) { rw = slot.clientWidth; drawChart(); } };
+      }
+      wire(view);
+      $("#role").addEventListener("change", function (e) {
+        var sel = e.target; sel.disabled = true;
+        api("/api/me", { body: { track: sel.value } }).then(function () { renderDash(); }).catch(function (er) { toast(er.message); sel.disabled = false; });
+      });
     }).catch(function (e) { view.innerHTML = errBox(e.message); });
   }
 
-  function startCase(id, btn) {
-    if (btn) btn.disabled = true;
-    api("/api/attempt", { body: { action: "start", caseId: id } }).then(function (d) { location.hash = "#/case/" + d.attempt.id; })
-      .catch(function (e) { alert(e.message); if (btn) btn.disabled = false; });
-  }
-
   /* ---------------- Case library ---------------- */
-  var filter = "All";
+  var filter = null, skillFilter = "Any";
   function renderCases() {
     chrome("cases"); loading("Loading cases…");
     Promise.all([getCases(), api("/api/me")]).then(function (r) {
       var cases = r[0], me = r[1], best = {}, open = {};
-      me.attempts.forEach(function (a) { if (a.completed_at) best[a.case_id] = Math.max(best[a.case_id] || 0, a.overall || 0); else if (!open[a.case_id]) open[a.case_id] = a.id; });
+      S.me = me;
+      if (filter == null) filter = me.track === "Not sure yet" ? "All" : me.track;
+      var recSkills = me.recommendations.map(function (x) { return x.skill; });
+      me.attempts.forEach(function (a) { if (a.custom) return; if (a.completed_at) best[a.case_id] = Math.max(best[a.case_id] || 0, a.overall || 0); else if (!open[a.case_id]) open[a.case_id] = a.id; });
       function draw() {
-        var list = cases.filter(function (c) { return filter === "All" || c.tracks.some(function (t) { return t.indexOf(filter) === 0; }); });
-        var html = '<h1 class="h1">Case library</h1><p class="sub">Six fictional cases, each with five stages: structure, exhibit, maths, a twist and your recommendation.</p><div class="filters">' +
-          ["All", "Consulting", "Product", "Strategy"].map(function (f) { return '<button type="button" class="' + (f === filter ? "on" : "") + '" data-f="' + f + '">' + f + "</button>"; }).join("") + '</div><div class="grid">';
+        var list = cases.filter(function (c) { return (filter === "All" || c.domains.indexOf(filter) >= 0) && (skillFilter === "Any" || c.focus.indexOf(skillFilter) >= 0); });
+        list.sort(function (a, b) { var ra = a.focus.some(function (f) { return recSkills.indexOf(f) >= 0; }) ? 0 : 1, rb = b.focus.some(function (f) { return recSkills.indexOf(f) >= 0; }) ? 0 : 1; return ra - rb; });
+        var html = '<h1 class="h1">Case library</h1><p class="sub">' + cases.length + " fictional cases, each with five stages: structure, exhibit, maths, a twist and your recommendation. Cases that train your weakest skills come first.</p>" +
+          '<div class="filters" aria-label="Role">' + ["All"].concat(TRACKS.slice(0, 3)).map(function (f) { return '<button type="button" class="' + (f === filter ? "on" : "") + '" data-f="' + f + '">' + (f === "All" ? "All roles" : f) + "</button>"; }).join("") + "</div>" +
+          '<div class="filters sk" aria-label="Skill"><span>Trains:</span>' + ["Any"].concat(SKILLS).map(function (f) { return '<button type="button" class="' + (f === skillFilter ? "on" : "") + '" data-s="' + f + '">' + (f === "Any" ? "Any skill" : SKILL_SHORT[f]) + (recSkills.indexOf(f) >= 0 ? " •" : "") + "</button>"; }).join("") + '</div><div class="grid">';
+        html += '<article class="card customcard"><div class="meta"><span class="chip c-brand">AI-built</span><span class="chip c-mute">20 min</span></div><div><div class="co">Made for you</div><h3>Build a custom case</h3></div><p>A brand-new ' + esc(me.track === "Not sure yet" ? "" : TRACK_SHORT[me.track].toLowerCase() + " ") + "case centred on " + esc((skillFilter !== "Any" ? [skillFilter] : recSkills).map(function (s) { return SKILL_SHORT[s].toLowerCase(); }).join(" and ")) + '. Up to 3 a day.</p><div class="foot"><span class="chip c-mute">Never the same twice</span><button class="btn grad" type="button" data-custom="' + (skillFilter !== "Any" ? esc(skillFilter) : "") + '">Build it</button></div></article>';
+        if (!list.length) html += '<p style="color:var(--muted)">No library case matches both filters. Try another skill, or build a custom case.</p>';
         list.forEach(function (c) {
           var status = best[c.id] != null ? '<span class="chip ' + (best[c.id] >= 80 ? "c-good" : "c-warn") + '">Best ' + best[c.id] + "/100</span>" : (open[c.id] ? '<span class="chip c-brand">In progress</span>' : '<span class="chip c-mute">Not started</span>');
-          html += '<article class="card"><div class="meta"><span class="chip ' + (TYPECHIP[c.type] || "c-mute") + '">' + esc(c.type) + '</span><span class="chip c-mute">' + esc(c.difficulty) + '</span><span class="chip c-mute">' + c.minutes + " min</span></div>" +
-            '<div><div class="co">' + esc(c.company) + " · " + esc(c.sector) + "</div><h3>" + esc(c.title) + "</h3></div><p>" + esc(c.intro) + '</p><div class="foot">' + status +
+          var forYou = c.focus.some(function (f) { return recSkills.indexOf(f) >= 0; });
+          html += '<article class="card"><div class="meta"><span class="chip ' + (TYPECHIP[c.type] || "c-mute") + '">' + esc(c.type) + '</span><span class="chip c-mute">' + esc(c.difficulty) + '</span><span class="chip c-mute">' + c.minutes + " min</span>" + (forYou ? '<span class="chip c-good">For your gaps</span>' : "") + "</div>" +
+            '<div><div class="co">' + esc(c.company) + " · " + esc(c.sector) + "</div><h3>" + esc(c.title) + "</h3></div><p>" + esc(c.intro) + "</p>" +
+            '<div class="tags"><small>Trains</small>' + c.focus.map(function (f) { return '<span class="tag' + (recSkills.indexOf(f) >= 0 ? " hot" : "") + '">' + esc(SKILL_SHORT[f]) + "</span>"; }).join("") + "<small>For</small>" + c.domains.map(function (t) { return '<span class="tag">' + esc(TRACK_SHORT[t]) + "</span>"; }).join("") + "</div>" +
+            '<div class="foot">' + status +
             (open[c.id] ? '<a class="btn" href="#/case/' + open[c.id] + '">Resume</a>' : '<button class="btn" type="button" data-start="' + c.id + '">' + (best[c.id] != null ? "Try again" : "Start case") + "</button>") + "</div></article>";
         });
         view.innerHTML = html + "</div>";
         view.querySelectorAll("[data-f]").forEach(function (b) { b.addEventListener("click", function () { filter = b.dataset.f; draw(); }); });
-        view.querySelectorAll("[data-start]").forEach(function (b) { b.addEventListener("click", function () { startCase(b.dataset.start, b); }); });
+        view.querySelectorAll("[data-s]").forEach(function (b) { b.addEventListener("click", function () { skillFilter = b.dataset.s; draw(); }); });
+        wire(view);
       }
       draw();
     }).catch(function (e) { view.innerHTML = errBox(e.message); });
@@ -269,16 +460,17 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
   function renderCase(id) {
     chrome("cases"); loading("Opening your case…");
     api("/api/attempt?id=" + encodeURIComponent(id)).then(function (d) {
-      var c = d.case, turns = d.turns, a = d.attempt, finished = !!a.completed_at;
+      var c = d.case, turns = d.turns, a = d.attempt, finished = !!a.completed_at, last = c.stages.length - 1;
       var valid = {}; turns.forEach(function (t) { if (t.is_valid) valid[t.stage] = true; });
       var answered = Object.keys(valid).length;
-      var cur = finished ? 4 : Math.min(4, answered), mode = finished ? "done" : (valid[cur] ? "review" : "answer");
+      var cur = finished ? last : Math.min(last, answered), mode = finished ? "done" : (valid[cur] ? "review" : "answer");
 
       function draw() {
-        var html = '<div class="shead"><div><div class="co" style="color:var(--muted);font-weight:600;font-size:13px">' + esc(c.company) + " · " + esc(c.type) + '</div><h1 class="h1">' + esc(c.title) + '</h1><div class="steps">' +
-          c.stages.map(function (s, i) { var cls = valid[i] ? "done" : (i === cur && !finished ? "cur" : ""); return '<span class="st ' + cls + '">' + (i + 1) + ". " + esc(s.skill) + "</span>"; }).join("") +
+        var html = '<div class="shead"><div><div class="co" style="color:var(--muted);font-weight:600;font-size:13px">' + esc(c.company) + " · " + esc(c.type) + (c.custom ? ' <span class="chip c-brand" style="margin-left:4px">AI-built for ' + esc(c.focus.map(function (f) { return SKILL_SHORT[f] ? SKILL_SHORT[f].toLowerCase() : f; }).join(" and ")) + "</span>" : "") + '</div><h1 class="h1">' + esc(c.title) + '</h1><div class="steps">' +
+          c.stages.map(function (s, i) { var k = valid[i] ? "done" : (i === cur && !finished ? "cur" : ""); return '<span class="st ' + k + '">' + (i + 1) + ". " + esc(s.skill) + "</span>"; }).join("") +
           '</div></div><div class="acts">' + (finished ? '<a class="btn" href="#/report/' + a.id + '">See your report</a>' : "") + '<a class="btn line" href="#/">Exit</a></div></div>';
         html += '<div class="sess"><aside class="panel file"><div class="ph"><h3>Case file</h3><span class="chip c-mute">' + c.minutes + ' min</span></div><div class="pb"><p class="intro">' + esc(c.intro) + "</p>";
+        if (c.custom) html += '<p class="fine" style="margin:-4px 0 12px">This case was written by AI for you. The numbers are checked by the writer, not by a person, so if one looks off, say so in your answer.</p>';
         c.stages.forEach(function (s, i) { if (i <= cur && s.exhibit) html += exhibitHtml(s.exhibit); });
         html += '</div></aside><section class="thread">';
         for (var i = 0; i <= cur; i++) {
@@ -290,7 +482,7 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
           html += '<form class="comp" id="cf"><textarea id="ans" maxlength="1600" placeholder="Answer as you would out loud. Be specific and use the numbers."></textarea><div class="cf"><small id="cnt">0 / 1,500</small><button class="btn" type="submit" id="sub">Submit answer</button></div></form><div id="cerr"></div>';
         } else if (mode === "review") {
           html += '<div class="acts"><button class="btn line" type="button" id="again">Try this stage again</button>' +
-            (cur < 4 ? '<button class="btn" type="button" id="nextb">Next stage</button>' : '<button class="btn grad" type="button" id="fin">Finish and see your report</button>') + '</div><div id="cerr"></div>';
+            (cur < last ? '<button class="btn" type="button" id="nextb">Next stage</button>' : '<button class="btn grad" type="button" id="fin">Finish and see your report</button>') + '</div><div id="cerr"></div>';
         }
         view.innerHTML = html + "</section></div>";
         var ta = $("#ans");
@@ -305,7 +497,7 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
             api("/api/attempt", { body: { action: "answer", attemptId: a.id, stage: cur, answer: ans } }).then(function (o) {
               turns.push({ stage: cur, input: ans, output: o, is_valid: !o.refused });
               if (!o.refused) { valid[cur] = true; d.models[cur] = o.model_answer; mode = "review"; }
-              draw(); var last = view.querySelectorAll(".fb"); if (last.length) last[last.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
+              draw(); var lastFb = view.querySelectorAll(".fb"); if (lastFb.length) lastFb[lastFb.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
             }).catch(function (er) { $("#cerr").innerHTML = errBox(er.message); b.disabled = false; b.textContent = "Submit answer"; });
           });
         }
@@ -313,7 +505,7 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
         if ($("#nextb")) $("#nextb").addEventListener("click", function () { cur++; mode = "answer"; draw(); window.scrollTo({ top: 0, behavior: "smooth" }); });
         if ($("#fin")) $("#fin").addEventListener("click", function (e) {
           e.target.disabled = true;
-          api("/api/attempt", { body: { action: "finish", attemptId: a.id } }).then(function () { location.hash = "#/report/" + a.id; })
+          api("/api/attempt", { body: { action: "finish", attemptId: a.id } }).then(function () { S.me = null; location.hash = "#/report/" + a.id; })
             .catch(function (er) { $("#cerr").innerHTML = errBox(er.message); e.target.disabled = false; });
         });
       }
@@ -327,20 +519,28 @@ details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-si
     api("/api/attempt?id=" + encodeURIComponent(id)).then(function (d) {
       var r = d.report, c = d.case;
       if (!r) { location.hash = "#/case/" + id; return; }
-      var html = '<h1 class="h1">Your readiness report</h1><p class="sub">' + esc(c.company) + ": " + esc(c.title) + " · " + fmtDate(d.attempt.completed_at) + "</p>";
+      var html = '<h1 class="h1">Your readiness report</h1><p class="sub">' + esc(c.company) + ": " + esc(c.title) + (c.custom ? " · AI-built case" : "") + " · " + fmtDate(d.attempt.completed_at) + "</p>";
       html += '<div class="rep"><section class="panel pb" style="text-align:center"><div class="ring" style="--p:' + r.overall + '"><div><span><b>' + r.overall + "</b><br><small>out of 100</small></span></div></div>" +
         (r.strongest ? '<p style="margin:0 0 4px"><span class="chip c-good">Strongest: ' + esc(r.strongest) + "</span></p>" : "") +
         (r.weakest ? '<p style="margin:0"><span class="chip c-bad">Work on: ' + esc(r.weakest) + "</span></p>" : "") +
-        '<div class="tip" style="text-align:left"><b>Practise next</b>' + esc(r.next) + "</div>" +
-        '<div class="acts" style="justify-content:center;margin-top:14px"><a class="btn" href="#/cases">Try another case</a><a class="btn line" href="#/">Dashboard</a></div></section>';
+        (r.next ? '<div class="tip" style="text-align:left"><b>Practise next</b>' + esc(r.next) + "</div>" : '<div class="tip" style="text-align:left;background:var(--good2)"><b style="color:var(--good)">Clean sweep</b>Every stage was strong. Try a Stretch case or build a custom one to keep raising the bar.</div>') +
+        '<div class="acts" style="justify-content:center;margin-top:14px"><a class="btn" href="#/">See your dashboard</a><a class="btn line" href="#/cases">Case library</a></div></section>';
       html += '<section class="panel"><div class="ph"><h3>Stage by stage</h3><a class="chip c-brand" style="text-decoration:none" href="#/case/' + d.attempt.id + '">Review your answers</a></div><div class="pb">';
       r.stages.forEach(function (s) {
         var v = VERDICT[s.verdict] || ["–", "c-mute"], pct = (s.score || 0) * 20;
         html += '<div class="skill"><div class="skill-top"><span>' + (s.stage + 1) + ". " + esc(s.skill) + '</span><span class="chip ' + v[1] + '">' + v[0] + "</span></div>" +
-          '<div class="bar"><i style="width:' + pct + "%;background:" + (pct >= 80 ? "var(--good)" : pct >= 50 ? "var(--brand)" : "var(--bad)") + '"></i></div><small>' + (s.score || 0) + " / 5" + (s.attempts > 1 ? " · after " + s.attempts + " tries" : "") + "</small></div>";
+          '<div class="bar"><i style="width:' + pct + "%;background:" + col(pct) + '"></i></div><small>' + (s.score || 0) + " / 5" + (s.attempts > 1 ? " · after " + s.attempts + " tries" : "") + "</small></div>";
       });
-      html += '<p class="fine">Scores reflect your latest answer at each stage. Your dashboard tracks each skill across cases.</p></div></section></div>';
+      html += '<p class="fine">Scores reflect your latest answer at each stage. Your dashboard tracks each skill across cases against your target role.</p></div></section></div>';
+      if (r.recommend) {
+        var rc = r.recommend;
+        html += '<section class="panel rec" style="margin-top:16px"><div class="ph"><h3>Next for ' + esc(rc.skill) + '</h3><span class="chip c-mute">' + esc(rc.track) + '</span></div><div class="pb two">' +
+          "<div><h4>Cases that train it</h4>" + (rc.cases.length ? rc.cases.map(caseRowHtml).join("") : '<p class="fine">You\'ve covered the library cases for this skill.</p>') +
+          '<button class="btn grad sm" type="button" data-custom="' + esc(rc.skill) + '" style="margin-top:10px">Build a custom case on ' + esc((SKILL_SHORT[rc.skill] || rc.skill).toLowerCase()) + "</button></div>" +
+          "<div><h4>Read or listen</h4>" + readingsHtml(rc.readings) + "</div></div></section>";
+      }
       view.innerHTML = html;
+      wire(view);
     }).catch(function (e) { view.innerHTML = errBox(e.message); });
   }
 

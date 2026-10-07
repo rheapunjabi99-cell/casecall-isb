@@ -1,7 +1,7 @@
 {
  "name": "CASECALL: case interview practice",
  "short_name": "CASECALL",
- "start_url": "/try",
+ "start_url": "/app",
  "display": "standalone",
  "background_color": "#0E1240",
  "theme_color": "#5B3DF5",

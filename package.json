@@ -1,6 +1,6 @@
 {
-  "name": "handover-site",
+  "name": "casecall",
   "private": true,
   "type": "module",
-  "description": "HANDOVER landing page with an AI decision-feedback feature (Vercel + Gemini + Supabase)"
+  "description": "CASECALL: case interview practice for ISB students (Vercel + Gemini + Supabase)"
 }
