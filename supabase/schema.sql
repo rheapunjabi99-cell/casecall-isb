@@ -7,7 +7,7 @@ create table if not exists public.cc_users (
   created_at  timestamptz not null default now(),
   email       text unique not null,
   name        text,
-  track       text,
+  track       text,                    -- Consulting | Product management | General management | Not sure yet
   pw_hash     text not null              -- scrypt hash, never the password
 );
 
@@ -19,7 +19,8 @@ create table if not exists public.cc_attempts (
   completed_at  timestamptz,
   overall       integer,                 -- 0-100
   skills        jsonb,                   -- score per skill for this case, 0-100
-  summary       jsonb
+  summary       jsonb,
+  custom_case   jsonb                    -- AI-built case (case_id = 'custom'), null for library cases
 );
 
 create table if not exists public.cc_turns (
@@ -42,6 +43,7 @@ create table if not exists public.cc_turns (
 );
 
 create index if not exists cc_attempts_user_idx on public.cc_attempts (user_id, started_at desc);
+create index if not exists cc_attempts_user_case_idx on public.cc_attempts (user_id, case_id, started_at desc);
 create index if not exists cc_turns_attempt_idx on public.cc_turns (attempt_id, created_at);
 create index if not exists cc_turns_user_idx on public.cc_turns (user_id, created_at);
 
