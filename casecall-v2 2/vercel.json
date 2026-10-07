@@ -1,6 +1,0 @@
-{
-  "cleanUrls": true,
-  "functions": {
-    "api/attempt.js": { "maxDuration": 60 }
-  }
-}

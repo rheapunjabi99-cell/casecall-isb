@@ -1,6 +1,0 @@
-{
-  "name": "casecall",
-  "private": true,
-  "type": "module",
-  "description": "CASECALL: case interview practice for ISB students (Vercel + Gemini + Supabase)"
-}
