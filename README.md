@@ -1,17 +1,25 @@
 # CASECALL: case interview practice for ISB students
 
-An independent student project (not affiliated with ISB). Students practise interviewer-led case interviews for placements and get AI feedback on every decision.
+An independent student project (not affiliated with ISB). Students create an account, work through six interviewer-led cases (five stages each), get AI feedback at every stage, replay stages, and track five skills on a dashboard.
 
-- `index.html` – landing page (product tour, interactive case decision, readiness radar, prep planner, pilot sign-up)
-- `try.html` – practice workspace (served at `/try`): pick a case, type your answer, get feedback from `/api/feedback`, see live numbers from `/api/stats`
-- `api/feedback.js` – Vercel function: caps, Gemini call, output checks, logs every exchange to Supabase
-- `api/stats.js` – live numbers read back from Supabase
-- `api/_shared.js` – Supabase helpers (not a route)
-- `supabase/schema.sql` – the `case_checks` table (run once in Supabase)
-- `vercel.json` – clean URLs so `/try` works
+## Pages
+- `index.html` – landing page
+- `app.html` – the product (served at `/app`): sign up / sign in, dashboard, case library, case sessions, readiness reports
+- `try.html` – redirects to the app
 
-## Environment variables (Vercel only, never in code)
-`GEMINI_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, optional `GEMINI_MODEL` (default `gemini-3.5-flash-lite`).
+## API (Vercel functions)
+- `api/auth.js` – sign up / sign in (scrypt-hashed passwords, signed 30-day tokens; @isb.edu emails only by default)
+- `api/cases.js` – case library (no rubrics or model answers)
+- `api/attempt.js` – start a case, review an answer with Gemini, finish with a readiness report; every answer and response stored in `cc_turns`
+- `api/me.js` – the student's dashboard, read back from Supabase
+- `api/stats.js` – public numbers for the landing page
+- `api/_cases.js` – the six cases, rubrics and model answers; `api/_shared.js` – helpers (not routes)
 
-## Caps and guardrails
-350 max output tokens; 3 reviews per visitor plus 30 per hashed IP per day; answers 30–1,200 characters; emails and phone numbers rejected; refuses non-answers and prompt injection; never predicts shortlists or offers.
+## Database
+Run `supabase/schema.sql` once in Supabase (creates `cc_users`, `cc_attempts`, `cc_turns`, with Row Level Security on).
+
+## Environment variables (Vercel only)
+`GEMINI_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`; optional `GEMINI_MODEL` (default `gemini-3.5-flash-lite`) and `ALLOWED_EMAIL_DOMAIN` (default `isb.edu`; set to empty to allow any email).
+
+## Limits
+400 output tokens per review; 80 reviews and 15 case starts per student per day; answers 20–1,500 characters; emails and phone numbers rejected; refuses non-answers and prompt injection; never predicts shortlists or offers.

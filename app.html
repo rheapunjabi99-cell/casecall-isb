@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CASECALL | Case interview practice for ISB students</title>
+<meta name="description" content="Practise interviewer-led case interviews with AI feedback at every stage, and track your readiness across five skills.">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#11163A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CASECALL">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--app:#F3F4F8;--panel:#fff;--panel2:#F8F8FB;--line:#E3E5EC;--text:#161A2E;--muted:#5F6680;--faint:#8B90A7;--brand:#5B3DF5;--brand2:#EEEBFF;--navy:#11163A;--good:#0E9F86;--good2:#E1F6F1;--warn:#B07400;--warn2:#FFF4D9;--bad:#D93A72;--bad2:#FFE6EF;--info:#2F7BEF;--info2:#E5EFFE;--font:"Inter","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--app:#0C0F22;--panel:#151A35;--panel2:#1B2142;--line:#2A3159;--text:#ECEDF7;--muted:#A7ACC8;--faint:#7F85A6;--brand2:#2A2464;--good2:#0F3A33;--warn2:#3D3014;--bad2:#47182D;--info2:#14305A;color-scheme:dark}}
+:root[data-theme="dark"]{--app:#0C0F22;--panel:#151A35;--panel2:#1B2142;--line:#2A3159;--text:#ECEDF7;--muted:#A7ACC8;--faint:#7F85A6;--brand2:#2A2464;--good2:#0F3A33;--warn2:#3D3014;--bad2:#47182D;--info2:#14305A;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%}body{margin:0;min-height:100%;background:var(--app);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}button,input,select,textarea{font:inherit}
+:focus-visible{outline:3px solid #FFBE2E;outline-offset:2px;border-radius:6px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--navy);color:#fff}
+.top .in{max-width:1280px;margin:0 auto;height:58px;padding:0 18px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.01em;text-decoration:none;color:#fff}
+.logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(120deg,#5B3DF5,#EE3F84);display:grid;place-items:center}.logo svg{width:17px;height:17px}
+.navl{display:flex;gap:4px}.navl a{color:rgba(255,255,255,.75);text-decoration:none;font-weight:600;font-size:14px;padding:7px 11px;border-radius:8px}.navl a.on,.navl a:hover{background:rgba(255,255,255,.12);color:#fff}
+.sp{flex:1}.who{font-size:13px;color:rgba(255,255,255,.8);font-weight:600}.linkbtn{background:none;border:0;color:rgba(255,255,255,.8);cursor:pointer;font-weight:600;font-size:13px;padding:6px 8px;border-radius:6px}.linkbtn:hover{color:#fff;background:rgba(255,255,255,.1)}
+@media(max-width:640px){.who{display:none}.navl a{padding:7px 8px}}
+.wrap{max-width:1280px;margin:0 auto;padding:22px 18px 60px}
+.h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 20px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.ph{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}.ph h3{margin:0;font-size:15px}
+.pb{padding:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 16px;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;background:var(--brand);color:#fff;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}.btn[disabled]{opacity:.6;cursor:progress;transform:none}
+.btn.line{background:var(--panel);color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}.btn.grad{background:linear-gradient(120deg,#5B3DF5,#EE3F84)}
+.chip{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:7px;white-space:nowrap}
+.c-good{background:var(--good2);color:var(--good)}.c-warn{background:var(--warn2);color:var(--warn)}.c-bad{background:var(--bad2);color:var(--bad)}.c-info{background:var(--info2);color:var(--info)}.c-brand{background:var(--brand2);color:var(--brand)}.c-mute{background:var(--panel2);color:var(--muted)}
+.msg{border-radius:10px;padding:12px 14px;font-weight:600;font-size:14px}.msg.err{background:var(--bad2);color:var(--bad)}.msg.warn{background:var(--warn2);color:var(--warn)}
+.field{display:grid;gap:6px;margin-bottom:14px}.field label{font-weight:700;font-size:13px}
+.field input,.field select,textarea{width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--panel);color:var(--text);font-size:15px}
+.field input:focus,.field select:focus,textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand2)}
+.loading{display:grid;place-items:center;min-height:50vh;color:var(--muted)}
+.spin{width:28px;height:28px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--brand);animation:spin 1s linear infinite;margin:0 auto 10px}@keyframes spin{to{transform:rotate(360deg)}}
+/* auth */
+.auth{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;min-height:calc(100vh - 140px)}
+.pitch h1{font-size:clamp(30px,4vw,44px);line-height:1.08;letter-spacing:-.03em;margin:0 0 14px}
+.pitch h1 span{background:linear-gradient(100deg,#5B3DF5,#EE3F84);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pitch p{color:var(--muted);font-size:16px;max-width:52ch}
+.pitch ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}.pitch li{display:flex;gap:10px;align-items:flex-start}
+.pitch li i{width:22px;height:22px;border-radius:50%;background:var(--good);color:#fff;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800;flex:none;margin-top:1px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--panel2);border-radius:10px;padding:4px;margin-bottom:18px}
+.tabs button{border:0;background:none;padding:9px;border-radius:8px;font-weight:700;color:var(--muted);cursor:pointer}.tabs button.on{background:var(--panel);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.fine{font-size:12px;color:var(--faint);margin:12px 0 0}
+@media(max-width:860px){.auth{grid-template-columns:1fr;min-height:auto}}
+/* dashboard */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}.kpi small{display:block;color:var(--muted);font-weight:600;font-size:12.5px}.kpi b{font-size:28px;letter-spacing:-.03em}
+.dash{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;align-items:start}
+.skill{padding:12px 0;border-bottom:1px solid var(--line)}.skill:last-child{border-bottom:0}
+.skill-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px;font-weight:700;font-size:14px}
+.bar{height:9px;border-radius:99px;background:var(--panel2);overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:var(--brand);transition:width .6s ease}
+.skill small{color:var(--faint);font-size:12px}
+.next{background:var(--navy);color:#fff;border-radius:14px;padding:18px;margin-bottom:16px}.next small{color:rgba(255,255,255,.7);font-weight:600;font-size:12px}.next h3{margin:4px 0 6px;font-size:18px}.next p{margin:0 0 14px;color:rgba(255,255,255,.8);font-size:14px}
+.att{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}.att:last-child{border-bottom:0}.att a{font-weight:700;text-decoration:none}.att a:hover{color:var(--brand)}.att small{display:block;color:var(--faint);font-size:12px}
+@media(max-width:960px){.dash{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}}
+/* cases */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.filters button{border:1.5px solid var(--line);background:var(--panel);color:var(--text);border-radius:99px;padding:7px 14px;font-weight:700;font-size:13px;cursor:pointer}.filters button.on{border-color:var(--brand);background:var(--brand2);color:var(--brand)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.card .meta{display:flex;gap:6px;flex-wrap:wrap}.card h3{margin:0;font-size:17px;letter-spacing:-.01em}.card .co{color:var(--muted);font-size:13px;font-weight:600}
+.card p{margin:0;color:var(--muted);font-size:14px;flex:1}.card .foot{display:flex;justify-content:space-between;align-items:center;gap:8px}
+/* session */
+.shead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.st{font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--panel);border:1px solid var(--line);color:var(--faint)}.st.cur{border-color:var(--brand);color:var(--brand);background:var(--brand2)}.st.done{color:var(--good);border-color:transparent;background:var(--good2)}
+.sess{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px;align-items:start}
+.file{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto}
+.file .intro{font-size:14.5px;margin:0 0 14px}
+.ex{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:12px}.ex h6{margin:0;padding:9px 12px;background:var(--panel2);font-size:12.5px;color:var(--muted)}
+.tbl{overflow-x:auto}.ex table{width:100%;border-collapse:collapse;font-size:13.5px}.ex th,.ex td{text-align:left;padding:8px 12px;border-top:1px solid var(--line);white-space:nowrap}.ex th{color:var(--faint);font-weight:700;font-size:12px}
+.thread{display:grid;gap:12px}
+.bub{border-radius:14px;padding:12px 14px;max-width:92%;font-size:14.5px}.bub small{display:block;font-size:11.5px;font-weight:800;margin-bottom:3px;opacity:.75}
+.bub.iv{background:var(--navy);color:#fff;border-bottom-left-radius:4px}.bub.me{background:var(--brand2);justify-self:end;border-bottom-right-radius:4px;white-space:pre-wrap}
+.fb{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:14px}
+.fb .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.fb .say{font-style:italic;margin:0 0 10px;color:var(--text)}
+.blk{border-radius:9px;padding:9px 11px;margin-bottom:8px;font-size:14px}.blk small{display:block;font-size:11.5px;font-weight:800;margin-bottom:2px}
+.b-good{background:var(--good2)}.b-good small{color:var(--good)}.b-miss{background:var(--bad2)}.b-miss small{color:var(--bad)}
+details.model{border-radius:9px;background:var(--info2);padding:9px 11px;font-size:14px}details.model summary{cursor:pointer;font-weight:800;font-size:12px;color:var(--info)}details.model p{margin:6px 0 0}
+.comp{background:var(--panel);border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.comp textarea{border:0;border-radius:0;min-height:130px;resize:vertical;box-shadow:none}
+.comp .cf{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;background:var(--panel2);border-top:1px solid var(--line);flex-wrap:wrap}
+.comp .cf small{color:var(--faint);font-size:12px}
+.acts{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:960px){.sess{grid-template-columns:1fr}.file{position:static;max-height:none}}
+/* report */
+.rep{display:grid;grid-template-columns:.8fr 1.2fr;gap:16px;align-items:start}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;margin:6px auto 12px;background:conic-gradient(var(--brand) calc(var(--p)*1%),var(--panel2) 0)}
+.ring div{width:118px;height:118px;border-radius:50%;background:var(--panel);display:grid;place-items:center;text-align:center}.ring b{font-size:34px;letter-spacing:-.03em;line-height:1}.ring small{color:var(--faint);font-size:12px}
+.tip{background:var(--warn2);border-radius:10px;padding:12px 14px;font-size:14px;margin-top:12px}.tip b{display:block;color:var(--warn);font-size:12px}
+@media(max-width:860px){.rep{grid-template-columns:1fr}}
+.foot-note{text-align:center;color:var(--faint);font-size:12px;margin-top:30px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="brand" href="#/"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="11" height="9" rx="2"/><rect x="10" y="11" width="11" height="9" rx="2" fill="#fff" fill-opacity=".25"/></svg></span>CASECALL</a>
+  <nav class="navl" id="nav" hidden><a href="#/" data-r="dash">Dashboard</a><a href="#/cases" data-r="cases">Cases</a></nav>
+  <span class="sp"></span>
+  <span class="who" id="who"></span>
+  <button class="linkbtn" id="out" hidden type="button">Sign out</button>
+</div></header>
+<main class="wrap" id="view" aria-live="polite"></main>
+<p class="foot-note">CASECALL is an independent student project, not affiliated with ISB. It never predicts shortlists or offers. Practice cases use fictional companies.</p>
+
+<script>
+(function () {
+  "use strict";
+  var view = document.getElementById("view");
+  var S = { token: null, user: null, cases: null };
+  try { S.token = localStorage.getItem("cc_token"); S.user = JSON.parse(localStorage.getItem("cc_user") || "null"); } catch (e) {}
+  var VERDICT = { strong: ["Strong", "c-good"], partial: ["Partly there", "c-warn"], missed: ["Missed the key point", "c-bad"] };
+  var TYPECHIP = { "Profitability": "c-bad", "Market entry": "c-warn", "Pricing": "c-info", "Market sizing": "c-good", "Product diagnosis": "c-brand", "Operations": "c-mute" };
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]; }); }
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function loading(t) { view.innerHTML = '<div class="loading"><div><div class="spin"></div>' + esc(t || "Loading…") + "</div></div>"; }
+  function errBox(m) { return '<div class="msg err">' + esc(m) + "</div>"; }
+  function fmtDate(d) { try { return new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short" }); } catch (e) { return ""; } }
+
+  function save() { try { localStorage.setItem("cc_token", S.token || ""); localStorage.setItem("cc_user", JSON.stringify(S.user)); } catch (e) {} }
+  function signOut() { S.token = null; S.user = null; try { localStorage.removeItem("cc_token"); localStorage.removeItem("cc_user"); } catch (e) {} location.hash = "#/login"; }
+  document.getElementById("out").addEventListener("click", signOut);
+
+  function api(path, opts) {
+    opts = opts || {};
+    var h = { "Content-Type": "application/json" };
+    if (S.token) h.Authorization = "Bearer " + S.token;
+    return fetch(path, { method: opts.method || (opts.body ? "POST" : "GET"), headers: h, body: opts.body ? JSON.stringify(opts.body) : undefined })
+      .then(function (r) {
+        return r.json().catch(function () { return { error: "The server didn't respond properly. Please try again." }; }).then(function (d) {
+          if (r.status === 401 && path !== "/api/auth") { signOut(); throw new Error(d.error || "Please sign in again."); }
+          if (!r.ok) { var e = new Error(d.error || "Something went wrong."); e.data = d; throw e; }
+          return d;
+        });
+      });
+  }
+  function getCases() { return S.cases ? Promise.resolve(S.cases) : api("/api/cases").then(function (d) { S.cases = d.cases; return d.cases; }); }
+
+  function chrome(route) {
+    var signed = !!S.token;
+    document.getElementById("nav").hidden = !signed;
+    document.getElementById("out").hidden = !signed;
+    document.getElementById("who").textContent = signed && S.user ? S.user.name : "";
+    document.querySelectorAll("#nav a").forEach(function (a) { a.classList.toggle("on", a.dataset.r === route); });
+  }
+
+  /* ---------------- Auth ---------------- */
+  function renderAuth(mode) {
+    chrome("auth");
+    mode = mode || "signup";
+    view.innerHTML =
+      '<div class="auth"><div class="pitch">' +
+      '<h1>Frameworks get you started. <span>Judgement gets you the offer.</span></h1>' +
+      "<p>Practise interviewer-led case interviews for placements. Every stage gets feedback in seconds, and your readiness report tracks five skills across every case you do.</p>" +
+      "<ul><li><i>✓</i>Six full cases: profitability, market entry, pricing, sizing, product and operations</li><li><i>✓</i>Feedback on every answer, plus what a strong candidate would say</li><li><i>✓</i>Replay any stage, then watch your skills move to interview-ready</li></ul></div>" +
+      '<div class="panel pb" style="padding:24px"><div class="tabs" role="tablist"><button type="button" data-m="signup" class="' + (mode === "signup" ? "on" : "") + '">Create account</button><button type="button" data-m="login" class="' + (mode === "login" ? "on" : "") + '">Sign in</button></div>' +
+      '<form id="af" novalidate>' +
+      (mode === "signup" ? '<div class="field"><label for="an">Your name</label><input id="an" autocomplete="name" required></div>' : "") +
+      '<div class="field"><label for="ae">ISB email</label><input id="ae" type="email" autocomplete="email" placeholder="name_pgp2027@isb.edu" required></div>' +
+      '<div class="field"><label for="ap">Password</label><input id="ap" type="password" autocomplete="' + (mode === "signup" ? "new-password" : "current-password") + '" minlength="8" placeholder="At least 8 characters" required></div>' +
+      (mode === "signup" ? '<div class="field"><label for="at">Target track</label><select id="at"><option>Consulting</option><option>Product</option><option>Strategy and general management</option><option>Not sure yet</option></select></div>' : "") +
+      '<div id="aerr"></div><button class="btn grad" type="submit" style="width:100%;margin-top:4px">' + (mode === "signup" ? "Create account and start" : "Sign in") + "</button>" +
+      '<p class="fine">Free during the pilot. Your answers are stored to power your progress report. Don\'t include names or contact details in answers.</p></form></div></div>';
+    view.querySelectorAll(".tabs button").forEach(function (b) { b.addEventListener("click", function () { location.hash = b.dataset.m === "login" ? "#/login" : "#/signup"; }); });
+    if (mode === "signup") { try { var pf = JSON.parse(localStorage.getItem("cc_prefill") || "null"); if (pf) { $("#an").value = pf.name || ""; $("#ae").value = pf.email || ""; if (pf.track) $("#at").value = pf.track; } } catch (e3) {} }
+    $("#af").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var btn = e.target.querySelector("button[type=submit]"); btn.disabled = true;
+      var payload = { action: mode, email: $("#ae").value.trim(), password: $("#ap").value };
+      if (mode === "signup") { payload.name = $("#an").value.trim(); payload.track = $("#at").value; }
+      api("/api/auth", { body: payload }).then(function (d) {
+        S.token = d.token; S.user = d.user; save(); location.hash = mode === "signup" ? "#/cases" : "#/";
+      }).catch(function (er) { $("#aerr").innerHTML = errBox(er.message) + "<div style='height:10px'></div>"; btn.disabled = false; });
+    });
+  }
+
+  /* ---------------- Dashboard ---------------- */
+  function renderDash() {
+    chrome("dash"); loading("Loading your progress…");
+    api("/api/me").then(function (d) {
+      S.user = d.user; save(); chrome("dash");
+      var k = d.kpis, first = (d.user.name || "").split(" ")[0];
+      var html = '<h1 class="h1">Hi ' + esc(first) + "</h1><p class='sub'>" + (k.casesCompleted ? "Here's where your case prep stands." : "Let's do your first case. It takes about 20 minutes.") + "</p>";
+      html += '<div class="kpis"><div class="kpi"><small>Cases completed</small><b>' + k.casesCompleted + '</b></div><div class="kpi"><small>Average score</small><b>' + (k.avgScore == null ? "–" : k.avgScore) + '</b></div><div class="kpi"><small>Interview-ready skills</small><b>' + k.readySkills + ' / 5</b></div><div class="kpi"><small>Minutes practised</small><b>' + k.minutes + "</b></div></div>";
+      html += '<div class="dash"><section class="panel"><div class="ph"><h3>Your five skills</h3><span class="chip c-mute">Average of your last 3 cases</span></div><div class="pb">';
+      d.skills.forEach(function (s) {
+        var chip = s.status === "Interview-ready" ? "c-good" : (s.status === "Practising" ? "c-warn" : "c-mute");
+        var col = s.avg >= 80 ? "var(--good)" : (s.avg >= 50 ? "var(--brand)" : "var(--bad)");
+        html += '<div class="skill"><div class="skill-top"><span>' + esc(s.name) + '</span><span class="chip ' + chip + '">' + esc(s.status) + "</span></div>" +
+          '<div class="bar"><i style="width:' + (s.avg || 0) + "%;background:" + col + '"></i></div><small>' + (s.avg == null ? "No cases yet" : s.avg + " / 100 · " + s.reps + (s.reps === 1 ? " case" : " cases")) + "</small></div>";
+      });
+      html += '<p class="fine">A skill becomes interview-ready when it averages 80 or more across at least two recent cases.</p></div></section><div>';
+      html += '<div class="next"><small>Practise next</small><h3>' + esc(d.practiseNext.title) + "</h3><p>" + (d.practiseNext.focus ? "Focus on " + esc(d.practiseNext.focus) + ", your lowest skill right now." : "A good first case to set your baseline.") + '</p><button class="btn grad" type="button" data-start="' + esc(d.practiseNext.caseId) + '">Start this case</button></div>';
+      html += '<section class="panel"><div class="ph"><h3>Your cases</h3><a class="chip c-brand" href="#/cases" style="text-decoration:none">Case library</a></div><div class="pb">';
+      if (!d.attempts.length) html += '<p style="margin:0;color:var(--muted)">No cases yet. Your history will appear here.</p>';
+      d.attempts.slice(0, 8).forEach(function (a) {
+        var href = a.completed_at ? "#/report/" + a.id : "#/case/" + a.id;
+        html += '<div class="att"><div><a href="' + href + '">' + esc(a.title) + "</a><small>" + fmtDate(a.started_at) + (a.completed_at ? "" : " · In progress") + "</small></div>" +
+          (a.completed_at ? '<span class="chip ' + (a.overall >= 80 ? "c-good" : a.overall >= 50 ? "c-warn" : "c-bad") + '">' + a.overall + " / 100</span>" : '<a class="chip c-brand" style="text-decoration:none" href="' + href + '">Resume</a>') + "</div>";
+      });
+      html += "</div></section></div></div>";
+      view.innerHTML = html;
+      view.querySelectorAll("[data-start]").forEach(function (b) { b.addEventListener("click", function () { startCase(b.dataset.start, b); }); });
+    }).catch(function (e) { view.innerHTML = errBox(e.message); });
+  }
+
+  function startCase(id, btn) {
+    if (btn) btn.disabled = true;
+    api("/api/attempt", { body: { action: "start", caseId: id } }).then(function (d) { location.hash = "#/case/" + d.attempt.id; })
+      .catch(function (e) { alert(e.message); if (btn) btn.disabled = false; });
+  }
+
+  /* ---------------- Case library ---------------- */
+  var filter = "All";
+  function renderCases() {
+    chrome("cases"); loading("Loading cases…");
+    Promise.all([getCases(), api("/api/me")]).then(function (r) {
+      var cases = r[0], me = r[1], best = {}, open = {};
+      me.attempts.forEach(function (a) { if (a.completed_at) best[a.case_id] = Math.max(best[a.case_id] || 0, a.overall || 0); else if (!open[a.case_id]) open[a.case_id] = a.id; });
+      function draw() {
+        var list = cases.filter(function (c) { return filter === "All" || c.tracks.some(function (t) { return t.indexOf(filter) === 0; }); });
+        var html = '<h1 class="h1">Case library</h1><p class="sub">Six fictional cases, each with five stages: structure, exhibit, maths, a twist and your recommendation.</p><div class="filters">' +
+          ["All", "Consulting", "Product", "Strategy"].map(function (f) { return '<button type="button" class="' + (f === filter ? "on" : "") + '" data-f="' + f + '">' + f + "</button>"; }).join("") + '</div><div class="grid">';
+        list.forEach(function (c) {
+          var status = best[c.id] != null ? '<span class="chip ' + (best[c.id] >= 80 ? "c-good" : "c-warn") + '">Best ' + best[c.id] + "/100</span>" : (open[c.id] ? '<span class="chip c-brand">In progress</span>' : '<span class="chip c-mute">Not started</span>');
+          html += '<article class="card"><div class="meta"><span class="chip ' + (TYPECHIP[c.type] || "c-mute") + '">' + esc(c.type) + '</span><span class="chip c-mute">' + esc(c.difficulty) + '</span><span class="chip c-mute">' + c.minutes + " min</span></div>" +
+            '<div><div class="co">' + esc(c.company) + " · " + esc(c.sector) + "</div><h3>" + esc(c.title) + "</h3></div><p>" + esc(c.intro) + '</p><div class="foot">' + status +
+            (open[c.id] ? '<a class="btn" href="#/case/' + open[c.id] + '">Resume</a>' : '<button class="btn" type="button" data-start="' + c.id + '">' + (best[c.id] != null ? "Try again" : "Start case") + "</button>") + "</div></article>";
+        });
+        view.innerHTML = html + "</div>";
+        view.querySelectorAll("[data-f]").forEach(function (b) { b.addEventListener("click", function () { filter = b.dataset.f; draw(); }); });
+        view.querySelectorAll("[data-start]").forEach(function (b) { b.addEventListener("click", function () { startCase(b.dataset.start, b); }); });
+      }
+      draw();
+    }).catch(function (e) { view.innerHTML = errBox(e.message); });
+  }
+
+  /* ---------------- Case session ---------------- */
+  function exhibitHtml(ex) {
+    if (!ex) return "";
+    return '<div class="ex"><h6>' + esc(ex.title) + '</h6><div class="tbl"><table><thead><tr>' + ex.head.map(function (h) { return "<th>" + esc(h) + "</th>"; }).join("") +
+      "</tr></thead><tbody>" + ex.rows.map(function (r) { return "<tr>" + r.map(function (v) { return "<td>" + esc(v) + "</td>"; }).join("") + "</tr>"; }).join("") + "</tbody></table></div></div>";
+  }
+  function fbHtml(o, model) {
+    if (o.refused) return '<div class="fb"><div class="msg warn">' + esc(o.message) + "</div></div>";
+    if (!o.ok) return '<div class="fb">' + errBox(o.error || "The review didn't come back cleanly.") + "</div>";
+    var v = VERDICT[o.verdict] || VERDICT.partial;
+    return '<div class="fb"><div class="row"><span class="chip ' + v[1] + '">' + v[0] + '</span><span class="chip c-mute">' + o.score + " / 5</span></div>" +
+      '<p class="say">“' + esc(o.interviewer_reply) + '”</p>' +
+      '<div class="blk b-good"><small>What worked</small>' + esc(o.what_worked) + "</div>" +
+      '<div class="blk b-miss"><small>What you missed</small>' + esc(o.what_you_missed) + "</div>" +
+      '<details class="model"><summary>What a strong candidate would say</summary><p>' + esc(model || o.model_answer) + "</p></details></div>";
+  }
+
+  function renderCase(id) {
+    chrome("cases"); loading("Opening your case…");
+    api("/api/attempt?id=" + encodeURIComponent(id)).then(function (d) {
+      var c = d.case, turns = d.turns, a = d.attempt, finished = !!a.completed_at;
+      var valid = {}; turns.forEach(function (t) { if (t.is_valid) valid[t.stage] = true; });
+      var answered = Object.keys(valid).length;
+      var cur = finished ? 4 : Math.min(4, answered), mode = finished ? "done" : (valid[cur] ? "review" : "answer");
+
+      function draw() {
+        var html = '<div class="shead"><div><div class="co" style="color:var(--muted);font-weight:600;font-size:13px">' + esc(c.company) + " · " + esc(c.type) + '</div><h1 class="h1">' + esc(c.title) + '</h1><div class="steps">' +
+          c.stages.map(function (s, i) { var cls = valid[i] ? "done" : (i === cur && !finished ? "cur" : ""); return '<span class="st ' + cls + '">' + (i + 1) + ". " + esc(s.skill) + "</span>"; }).join("") +
+          '</div></div><div class="acts">' + (finished ? '<a class="btn" href="#/report/' + a.id + '">See your report</a>' : "") + '<a class="btn line" href="#/">Exit</a></div></div>';
+        html += '<div class="sess"><aside class="panel file"><div class="ph"><h3>Case file</h3><span class="chip c-mute">' + c.minutes + ' min</span></div><div class="pb"><p class="intro">' + esc(c.intro) + "</p>";
+        c.stages.forEach(function (s, i) { if (i <= cur && s.exhibit) html += exhibitHtml(s.exhibit); });
+        html += '</div></aside><section class="thread">';
+        for (var i = 0; i <= cur; i++) {
+          var s = c.stages[i];
+          html += '<div class="bub iv"><small>Interviewer · Stage ' + (i + 1) + ": " + esc(s.title) + "</small>" + esc(s.prompt) + "</div>";
+          turns.filter(function (t) { return t.stage === i; }).forEach(function (t) { html += '<div class="bub me"><small>You</small>' + esc(t.input) + "</div>" + fbHtml(t.output || {}, d.models[i]); });
+        }
+        if (mode === "answer") {
+          html += '<form class="comp" id="cf"><textarea id="ans" maxlength="1600" placeholder="Answer as you would out loud. Be specific and use the numbers."></textarea><div class="cf"><small id="cnt">0 / 1,500</small><button class="btn" type="submit" id="sub">Submit answer</button></div></form><div id="cerr"></div>';
+        } else if (mode === "review") {
+          html += '<div class="acts"><button class="btn line" type="button" id="again">Try this stage again</button>' +
+            (cur < 4 ? '<button class="btn" type="button" id="nextb">Next stage</button>' : '<button class="btn grad" type="button" id="fin">Finish and see your report</button>') + '</div><div id="cerr"></div>';
+        }
+        view.innerHTML = html + "</section></div>";
+        var ta = $("#ans");
+        if (ta) {
+          ta.focus({ preventScroll: true });
+          ta.addEventListener("input", function () { $("#cnt").textContent = ta.value.trim().length.toLocaleString("en-IN") + " / 1,500"; });
+          $("#cf").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var ans = ta.value.trim();
+            if (ans.length < 20) { $("#cerr").innerHTML = errBox("Say a bit more: at least 20 characters."); return; }
+            var b = $("#sub"); b.disabled = true; b.textContent = "The interviewer is reading…";
+            api("/api/attempt", { body: { action: "answer", attemptId: a.id, stage: cur, answer: ans } }).then(function (o) {
+              turns.push({ stage: cur, input: ans, output: o, is_valid: !o.refused });
+              if (!o.refused) { valid[cur] = true; d.models[cur] = o.model_answer; mode = "review"; }
+              draw(); var last = view.querySelectorAll(".fb"); if (last.length) last[last.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
+            }).catch(function (er) { $("#cerr").innerHTML = errBox(er.message); b.disabled = false; b.textContent = "Submit answer"; });
+          });
+        }
+        if ($("#again")) $("#again").addEventListener("click", function () { mode = "answer"; draw(); });
+        if ($("#nextb")) $("#nextb").addEventListener("click", function () { cur++; mode = "answer"; draw(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+        if ($("#fin")) $("#fin").addEventListener("click", function (e) {
+          e.target.disabled = true;
+          api("/api/attempt", { body: { action: "finish", attemptId: a.id } }).then(function () { location.hash = "#/report/" + a.id; })
+            .catch(function (er) { $("#cerr").innerHTML = errBox(er.message); e.target.disabled = false; });
+        });
+      }
+      draw();
+    }).catch(function (e) { view.innerHTML = errBox(e.message); });
+  }
+
+  /* ---------------- Report ---------------- */
+  function renderReport(id) {
+    chrome("cases"); loading("Building your report…");
+    api("/api/attempt?id=" + encodeURIComponent(id)).then(function (d) {
+      var r = d.report, c = d.case;
+      if (!r) { location.hash = "#/case/" + id; return; }
+      var html = '<h1 class="h1">Your readiness report</h1><p class="sub">' + esc(c.company) + ": " + esc(c.title) + " · " + fmtDate(d.attempt.completed_at) + "</p>";
+      html += '<div class="rep"><section class="panel pb" style="text-align:center"><div class="ring" style="--p:' + r.overall + '"><div><span><b>' + r.overall + "</b><br><small>out of 100</small></span></div></div>" +
+        (r.strongest ? '<p style="margin:0 0 4px"><span class="chip c-good">Strongest: ' + esc(r.strongest) + "</span></p>" : "") +
+        (r.weakest ? '<p style="margin:0"><span class="chip c-bad">Work on: ' + esc(r.weakest) + "</span></p>" : "") +
+        '<div class="tip" style="text-align:left"><b>Practise next</b>' + esc(r.next) + "</div>" +
+        '<div class="acts" style="justify-content:center;margin-top:14px"><a class="btn" href="#/cases">Try another case</a><a class="btn line" href="#/">Dashboard</a></div></section>';
+      html += '<section class="panel"><div class="ph"><h3>Stage by stage</h3><a class="chip c-brand" style="text-decoration:none" href="#/case/' + d.attempt.id + '">Review your answers</a></div><div class="pb">';
+      r.stages.forEach(function (s) {
+        var v = VERDICT[s.verdict] || ["–", "c-mute"], pct = (s.score || 0) * 20;
+        html += '<div class="skill"><div class="skill-top"><span>' + (s.stage + 1) + ". " + esc(s.skill) + '</span><span class="chip ' + v[1] + '">' + v[0] + "</span></div>" +
+          '<div class="bar"><i style="width:' + pct + "%;background:" + (pct >= 80 ? "var(--good)" : pct >= 50 ? "var(--brand)" : "var(--bad)") + '"></i></div><small>' + (s.score || 0) + " / 5" + (s.attempts > 1 ? " · after " + s.attempts + " tries" : "") + "</small></div>";
+      });
+      html += '<p class="fine">Scores reflect your latest answer at each stage. Your dashboard tracks each skill across cases.</p></div></section></div>';
+      view.innerHTML = html;
+    }).catch(function (e) { view.innerHTML = errBox(e.message); });
+  }
+
+  /* ---------------- Router ---------------- */
+  function route() {
+    var h = location.hash.replace(/^#/, "") || "/";
+    var parts = h.split("/").filter(Boolean);
+    if (!S.token) { renderAuth(parts[0] === "login" ? "login" : "signup"); return; }
+    window.scrollTo(0, 0);
+    if (parts[0] === "cases") renderCases();
+    else if (parts[0] === "case" && parts[1]) renderCase(parts[1]);
+    else if (parts[0] === "report" && parts[1]) renderReport(parts[1]);
+    else if (parts[0] === "login" || parts[0] === "signup") { location.hash = "#/"; }
+    else renderDash();
+  }
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>
