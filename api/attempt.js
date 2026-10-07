@@ -2,14 +2,18 @@
 //   POST { action: "start", caseId }                         -> start a case
 //   POST { action: "answer", attemptId, stage, answer }      -> AI interviewer reviews one stage
 //   POST { action: "finish", attemptId }                     -> readiness report for this case
+//   POST { action: "custom", focus? }                        -> AI writes a new case aimed at the student's weakest skills
 //   GET  ?id=attemptId                                       -> attempt with all turns (resume / review)
 // Every answer and AI response is stored in Supabase (cc_turns) with token counts.
 import { body, missingEnv, db, enc, userIdFrom, gemini, MODEL, clip } from "./_shared.js";
-import { findCase, publicCase, SKILLS } from "./_cases.js";
+import { findCase, caseForAttempt, publicCase, SKILLS } from "./_cases.js";
+import { buildProfile, casesForSkill, readingsFor, normalizeTrack, PRACTICE_TIP } from "./_profile.js";
+import { writeCustomCase } from "./_custom.js";
 
 const MAX_OUTPUT_TOKENS = 400;
 const MAX_TURNS_PER_DAY = 80;      // per student
 const MAX_ATTEMPTS_PER_DAY = 15;   // per student
+const MAX_CUSTOM_PER_DAY = 3;      // AI-built cases per student
 const MIN_CHARS = 20, MAX_CHARS = 1500;
 const PII = /[\w.+-]+@[\w-]+\.[\w.]+|(?:\+?91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}\b/;
 
@@ -42,14 +46,6 @@ const SCHEMA = {
   required: ["is_valid_attempt", "verdict", "score", "interviewer_reply", "what_worked", "what_you_missed"],
 };
 
-const NEXT_TIP = {
-  "Structuring": "Before answering, take 30 seconds to lay out three or four branches specific to the case, and say which you'd check first.",
-  "Reading exhibits": "When an exhibit appears, find the one or two numbers that changed most and say what they mean before anything else.",
-  "Quant and maths": "Say each step out loud, keep track of lakh vs crore, and sense-check the final number against the size of the business.",
-  "Hypothesis-driven thinking": "When the case twists, restate the new constraint, then build your answer around it instead of defending your first idea.",
-  "Synthesis and recommendation": "Lead with the answer in one line, then two reasons with numbers, one risk, and a next step.",
-};
-
 const exhibitText = (ex) => !ex ? "" :
   `\n<exhibit>\n${ex.title}\n${ex.head.join(" | ")}\n${ex.rows.map((r) => r.join(" | ")).join("\n")}\n</exhibit>`;
 
@@ -78,8 +74,11 @@ function buildReport(attempt, c, turns) {
   const vals = Object.values(skills);
   const overall = vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : 0;
   const sorted = Object.entries(skills).sort((a, b) => b[1] - a[1]);
-  const strongest = sorted[0]?.[0] || null, weakest = sorted[sorted.length - 1]?.[0] || null;
-  return { overall, skills, stages, strongest, weakest, next: weakest ? NEXT_TIP[weakest] : "" };
+  const allEqual = sorted.length > 1 && sorted[0][1] === sorted[sorted.length - 1][1];
+  const strongest = allEqual ? null : sorted[0]?.[0] || null;
+  // No "work on" flag when every stage scored the same and well (nothing stands out to fix).
+  const weakest = allEqual && overall >= 80 ? null : sorted[sorted.length - 1]?.[0] || null;
+  return { overall, skills, stages, strongest, weakest, next: weakest ? PRACTICE_TIP[weakest] : "" };
 }
 
 export default async function handler(req, res) {
@@ -93,11 +92,26 @@ export default async function handler(req, res) {
       const id = (req.query && req.query.id) || new URL(req.url, "http://x").searchParams.get("id");
       const attempt = await ownedAttempt(id, uid);
       if (!attempt) return res.status(404).json({ error: "Case attempt not found." });
-      const c = findCase(attempt.case_id);
+      const c = caseForAttempt(attempt);
+      if (!c) return res.status(404).json({ error: "This case is no longer available." });
       const turns = await db.select("cc_turns", `select=id,stage,input,output,is_valid,verdict,score,created_at&attempt_id=eq.${enc(attempt.id)}&order=created_at.asc`);
       const models = {};
       for (const t of turns) if (t.is_valid) models[t.stage] = c.stages[t.stage].model;
-      return res.status(200).json({ attempt, case: publicCase(c), turns, models, report: attempt.completed_at ? buildReport(attempt, c, turns) : null });
+      let report = null;
+      if (attempt.completed_at) {
+        report = buildReport(attempt, c, turns);
+        if (report.weakest) {
+          const users = await db.select("cc_users", `select=track&id=eq.${enc(uid)}&limit=1`);
+          const track = normalizeTrack(users[0] && users[0].track);
+          report.recommend = {
+            skill: report.weakest, track,
+            cases: casesForSkill(report.weakest, track, { [c.id]: { best: attempt.overall, skills: attempt.skills || {} } }, 3).filter((x) => x.caseId !== c.id).slice(0, 2),
+            readings: readingsFor(report.weakest, track, 2),
+          };
+        }
+      }
+      const { custom_case, ...attemptOut } = attempt;
+      return res.status(200).json({ attempt: attemptOut, case: publicCase(c), turns, models, report });
     }
     if (req.method !== "POST") return res.status(405).json({ error: "Use GET or POST." });
 
@@ -118,7 +132,8 @@ export default async function handler(req, res) {
       const attempt = await ownedAttempt(b.attemptId, uid);
       if (!attempt) return res.status(404).json({ error: "Case attempt not found." });
       if (attempt.completed_at) return res.status(400).json({ error: "This case is finished. Start it again to practise more." });
-      const c = findCase(attempt.case_id);
+      const c = caseForAttempt(attempt);
+      if (!c) return res.status(404).json({ error: "This case is no longer available." });
       const stage = Number(b.stage);
       if (!Number.isInteger(stage) || stage < 0 || stage >= c.stages.length) return res.status(400).json({ error: "Unknown stage." });
       const answer = String(b.answer || "").trim();
@@ -129,7 +144,7 @@ export default async function handler(req, res) {
       if (used >= MAX_TURNS_PER_DAY) return res.status(429).json({ error: "You've reached today's practice limit. Come back tomorrow." });
 
       const s = c.stages[stage];
-      const msg = `<case>\n${c.company} (${c.sector}). ${c.intro}\n</case>\n\nStage ${stage + 1} of 5, skill: ${s.skill}\nInterviewer's question: ${s.prompt}${exhibitText(s.exhibit)}\n\n<rubric>\nStrong: ${s.rubric.strong}\nWeak: ${s.rubric.weak}\n</rubric>\n\n<answer>\n${answer}\n</answer>`;
+      const msg = `<case>\n${c.company} (${c.sector}). ${c.intro}\n</case>\n\nStage ${stage + 1} of ${c.stages.length}, skill: ${s.skill}\nInterviewer's question: ${s.prompt}${exhibitText(s.exhibit)}\n\n<rubric>\nStrong: ${s.rubric.strong}\nWeak: ${s.rubric.weak}\n</rubric>\n\n<answer>\n${answer}\n</answer>`;
 
       let out = null, err = null, meta = {};
       try {
@@ -157,10 +172,41 @@ export default async function handler(req, res) {
       return res.status(result.ok ? 200 : 502).json({ ...result, remaining_today: Math.max(0, MAX_TURNS_PER_DAY - used - 1) });
     }
 
+    if (b.action === "custom") {
+      if (missingEnv(["GEMINI_API_KEY"]).length) return res.status(500).json({ error: "Server is missing: GEMINI_API_KEY" });
+      const n = await db.count("cc_attempts", `user_id=eq.${enc(uid)}&started_at=gte.${enc(since)}`);
+      if (n >= MAX_ATTEMPTS_PER_DAY) return res.status(429).json({ error: `You've started ${MAX_ATTEMPTS_PER_DAY} cases today. Come back tomorrow.` });
+      const nc = await db.count("cc_attempts", `user_id=eq.${enc(uid)}&case_id=eq.custom&started_at=gte.${enc(since)}`);
+      if (nc >= MAX_CUSTOM_PER_DAY) return res.status(429).json({ error: `You've built ${MAX_CUSTOM_PER_DAY} custom cases today. Try a library case, or come back tomorrow.` });
+
+      const users = await db.select("cc_users", `select=track&id=eq.${enc(uid)}&limit=1`);
+      const done = await db.select("cc_attempts", `select=case_id,completed_at,overall,skills&user_id=eq.${enc(uid)}&completed_at=not.is.null&order=completed_at.asc&limit=200`);
+      const profile = buildProfile(done, users[0] && users[0].track);
+      let focus = profile.recommendations.map((r) => r.skill);
+      if (SKILLS.includes(b.focus)) focus = [b.focus, ...focus.filter((x) => x !== b.focus)].slice(0, 2);
+
+      let written;
+      try { written = await writeCustomCase({ track: profile.track, focus, mode: profile.focusMode }); }
+      catch (e) {
+        console.error("custom case failed", e);
+        return res.status(502).json({ error: "We couldn't build a case this time. Please try again in a moment." });
+      }
+      try {
+        const attempt = await db.insert("cc_attempts", { user_id: uid, case_id: "custom", custom_case: written });
+        const { custom_case, ...attemptOut } = attempt;
+        return res.status(200).json({ attempt: attemptOut, case: publicCase({ ...written, custom: true }) });
+      } catch (e) {
+        console.error(e);
+        if (/custom_case/.test(String(e.message))) return res.status(500).json({ error: "Custom cases need a one-time database update: run supabase/upgrade.sql in Supabase." });
+        throw e;
+      }
+    }
+
     if (b.action === "finish") {
       const attempt = await ownedAttempt(b.attemptId, uid);
       if (!attempt) return res.status(404).json({ error: "Case attempt not found." });
-      const c = findCase(attempt.case_id);
+      const c = caseForAttempt(attempt);
+      if (!c) return res.status(404).json({ error: "This case is no longer available." });
       const turns = await db.select("cc_turns", `select=stage,is_valid,verdict,score,created_at&attempt_id=eq.${enc(attempt.id)}&order=created_at.asc`);
       const report = buildReport(attempt, c, turns);
       const done = report.stages.filter((s) => s.score).length;

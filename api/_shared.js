@@ -2,6 +2,7 @@
 // Secrets come ONLY from Vercel environment variables:
 //   GEMINI_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_KEY  (optional: GEMINI_MODEL, ALLOWED_EMAIL_DOMAIN)
 import crypto from "node:crypto";
+import { normalizeTrack } from "./_profile.js";
 
 export const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
 
@@ -80,24 +81,37 @@ export function userIdFrom(req) {
     return p.uid;
   } catch { return null; }
 }
-export const publicUser = (u) => ({ id: u.id, name: u.name, email: u.email, track: u.track, created_at: u.created_at });
+export const publicUser = (u) => ({ id: u.id, name: u.name, email: u.email, track: normalizeTrack(u.track), created_at: u.created_at });
 
 /* ---------------- Gemini ---------------- */
-export async function gemini(systemPrompt, userMsg, schema, maxTokens) {
-  const generationConfig = { maxOutputTokens: maxTokens, temperature: 0.3, responseMimeType: "application/json", responseSchema: schema };
-  if (MODEL.includes("2.5")) generationConfig.thinkingConfig = { thinkingBudget: 0 };
+// Keep "thinking" low so it doesn't eat the output budget. 2.5 models take a token budget, 3.x models a level.
+// If a model rejects the setting, retry once without it.
+function thinkingFor(model) {
+  if (model.includes("2.5")) return { thinkingBudget: 0 };
+  if (/gemini-[3-9]/.test(model)) return { thinkingLevel: "low" };
+  return null;
+}
+export async function gemini(systemPrompt, userMsg, schema, maxTokens, opts = {}) {
   const started = Date.now();
-  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
-    body: JSON.stringify({ systemInstruction: { parts: [{ text: systemPrompt }] }, contents: [{ role: "user", parts: [{ text: userMsg }] }], generationConfig }),
-  });
-  const data = await r.json();
+  const call = async (withThinking) => {
+    const generationConfig = { maxOutputTokens: maxTokens, temperature: opts.temperature ?? 0.3, responseMimeType: "application/json", responseSchema: schema };
+    const t = withThinking ? thinkingFor(MODEL) : null;
+    if (t) generationConfig.thinkingConfig = t;
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
+      body: JSON.stringify({ systemInstruction: { parts: [{ text: systemPrompt }] }, contents: [{ role: "user", parts: [{ text: userMsg }] }], generationConfig }),
+    });
+    const data = await r.json().catch(() => ({}));
+    return { r, data, usedThinking: !!t };
+  };
+  let { r, data, usedThinking } = await call(true);
+  if (!r.ok && usedThinking && r.status === 400 && /thinking/i.test(data?.error?.message || "")) ({ r, data } = await call(false));
   if (!r.ok) throw new Error(data?.error?.message || `Gemini error ${r.status}`);
   const cand = data.candidates?.[0];
   if (cand?.finishReason === "MAX_TOKENS") throw new Error("Answer hit the token cap");
   if (cand?.finishReason === "SAFETY") throw new Error("Blocked by safety filter");
-  const text = cand?.content?.parts?.map((p) => p.text || "").join("") || "";
+  const text = cand?.content?.parts?.filter((p) => !p.thought).map((p) => p.text || "").join("") || "";
   return {
     parsed: JSON.parse(text),
     inputTokens: data.usageMetadata?.promptTokenCount ?? null,

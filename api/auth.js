@@ -1,8 +1,7 @@
 // POST /api/auth   { action: "signup" | "login", email, password, name?, track? }
 // Student accounts for CASECALL. Passwords are hashed with scrypt; the app gets a signed 30-day token.
 import { body, missingEnv, db, enc, hashPassword, checkPassword, signToken, publicUser, clip } from "./_shared.js";
-
-const TRACKS = ["Consulting", "Product", "Strategy and general management", "Not sure yet"];
+import { TRACKS, normalizeTrack } from "./_profile.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Use POST." });
@@ -24,7 +23,7 @@ export default async function handler(req, res) {
       if (existing.length) return res.status(409).json({ error: "An account with this email already exists. Sign in instead." });
       const name = clip(b.name, 60);
       if (!name) return res.status(400).json({ error: "Enter your name." });
-      const track = TRACKS.includes(b.track) ? b.track : "Not sure yet";
+      const track = TRACKS[b.track] ? b.track : normalizeTrack(b.track);
       const user = await db.insert("cc_users", { email, name, track, pw_hash: hashPassword(password) });
       return res.status(200).json({ token: signToken(user.id), user: publicUser(user) });
     }

@@ -1,5 +1,6 @@
 // CASECALL case library. Every number here is fictional and internally consistent.
-// Each case has 5 stages, one per skill. Rubrics and model answers stay on the server
+// Each case has 5 stages, one per skill. `domains` = target roles it suits; `focus` = the two skills it tests hardest
+// (used to recommend cases for a student's weakest skills). Rubrics and model answers stay on the server
 // for the AI review; the app shows the model answer only after a student submits.
 
 export const SKILLS = [
@@ -17,7 +18,8 @@ export const CASES = [
     company: "Zipkart",
     sector: "Quick-commerce grocery",
     type: "Profitability",
-    tracks: ["Consulting", "Strategy"],
+    domains: ["Consulting", "General management"],
+    focus: ["Reading exhibits", "Hypothesis-driven thinking"],
     minutes: 20,
     difficulty: "Core",
     intro:
@@ -109,7 +111,8 @@ export const CASES = [
     company: "Crumb & Co",
     sector: "Premium bakery chain",
     type: "Market entry",
-    tracks: ["Consulting", "Strategy"],
+    domains: ["Consulting", "General management"],
+    focus: ["Structuring", "Synthesis and recommendation"],
     minutes: 20,
     difficulty: "Core",
     intro:
@@ -197,7 +200,8 @@ export const CASES = [
     company: "PayNest",
     sector: "HR software for small businesses",
     type: "Pricing",
-    tracks: ["Consulting", "Product"],
+    domains: ["Consulting", "Product management"],
+    focus: ["Quant and maths", "Hypothesis-driven thinking"],
     minutes: 20,
     difficulty: "Core",
     intro:
@@ -275,7 +279,8 @@ export const CASES = [
     company: "DabbaGo",
     sector: "Home-cooked meal delivery",
     type: "Market sizing",
-    tracks: ["Consulting", "Strategy", "Product"],
+    domains: ["Consulting", "Product management"],
+    focus: ["Quant and maths", "Reading exhibits"],
     minutes: 15,
     difficulty: "Starter",
     intro:
@@ -357,7 +362,8 @@ export const CASES = [
     company: "Snackly",
     sector: "Food delivery app",
     type: "Product diagnosis",
-    tracks: ["Product", "Strategy"],
+    domains: ["Product management"],
+    focus: ["Reading exhibits", "Hypothesis-driven thinking"],
     minutes: 20,
     difficulty: "Core",
     intro:
@@ -438,7 +444,8 @@ export const CASES = [
     company: "Sahyog Hospital",
     sector: "Multi-speciality hospital",
     type: "Operations",
-    tracks: ["Consulting", "Strategy"],
+    domains: ["Consulting", "General management"],
+    focus: ["Structuring", "Quant and maths"],
     minutes: 20,
     difficulty: "Stretch",
     intro:
@@ -513,16 +520,264 @@ export const CASES = [
       },
     ],
   },
+  {
+    id: "kosh",
+    title: "Which feature ships next?",
+    company: "Kosh",
+    sector: "Personal finance app",
+    type: "Prioritisation",
+    domains: ["Product management"],
+    focus: ["Structuring", "Synthesis and recommendation"],
+    minutes: 20,
+    difficulty: "Core",
+    intro:
+      "Kosh is a personal finance app with 4 million monthly users who use it to pay bills and track spending. This year's goal is to grow monthly revenue. Engineering can build one big feature next quarter, and the Head of Product wants you to pick it from three candidates.",
+    stages: [
+      {
+        skill: "Structuring",
+        title: "Structure the decision",
+        prompt: "How would you decide which feature Kosh should build next?",
+        rubric: {
+          strong: "Anchors on the goal (monthly revenue, without hurting user trust). Sets clear criteria: how many users each feature reaches, revenue or value per user, confidence in those estimates, and engineering effort, so features can be compared on expected impact per week of effort (a RICE-style approach). Also checks strategic fit and risks such as regulation for lending.",
+          weak: "Picks a favourite feature straight away; lists pros and cons without criteria; ignores the revenue goal or the effort each feature needs.",
+        },
+        model:
+          "I'd start from the goal: grow monthly revenue without hurting trust. For each feature I'd estimate how many users it reaches, revenue per user, how confident we are in those numbers, and the engineering weeks it needs. Then I'd compare expected impact per week of effort, and check risks like lending regulation.",
+      },
+      {
+        skill: "Reading exhibits",
+        title: "Read the exhibit",
+        prompt: "Here are the three features the team has scoped. What stands out?",
+        exhibit: {
+          title: "Exhibit 1: Feature candidates",
+          head: ["Feature", "Users reached per month", "Revenue per user reached per month", "Confidence in estimate", "Engineering effort"],
+          rows: [
+            ["A. Credit card bill reminders with autopay", "12 lakh", "₹5", "High (80%)", "6 weeks"],
+            ["B. Small instant loans via a partner NBFC", "3 lakh", "₹40", "Low (40%)", "12 weeks"],
+            ["C. Gold savings round-ups", "6 lakh", "₹8", "Medium (60%)", "6 weeks"],
+          ],
+        },
+        rubric: {
+          strong: "Notices that loans have the biggest headline revenue (3 lakh × ₹40 = ₹1.2 crore a month vs ₹60 lakh for reminders and ₹48 lakh for gold) but the lowest confidence and twice the effort. After adjusting for confidence, reminders and loans both come to about ₹48 lakh, so reminders look better once effort is counted.",
+          weak: "Picks loans because of the high revenue per user, or reminders because of reach alone; ignores confidence or effort; reads rows out without comparing them.",
+        },
+        model:
+          "Loans look biggest on paper: 3 lakh users × ₹40 is ₹1.2 crore a month, against ₹60 lakh for reminders. But loans have the lowest confidence and take twice as long to build. Adjusted for confidence, both come to about ₹48 lakh, so reminders should win once we count effort.",
+      },
+      {
+        skill: "Quant and maths",
+        title: "Do the maths",
+        prompt: "Work out each feature's confidence-adjusted monthly revenue per week of engineering effort. Which one wins, and by how much?",
+        rubric: {
+          strong: "Reminders: 12 lakh × ₹5 × 80% = ₹48 lakh, ÷ 6 weeks = ₹8 lakh per week. Loans: 3 lakh × ₹40 × 40% = ₹48 lakh, ÷ 12 = ₹4 lakh per week. Gold: 6 lakh × ₹8 × 60% = ₹28.8 lakh, ÷ 6 = ₹4.8 lakh per week. Reminders win, about 1.7 times gold and twice loans. Shows the steps.",
+          weak: "Skips the confidence adjustment or the effort division; lakh and crore mix-ups; no clear winner stated.",
+        },
+        model:
+          "Reminders: 12 lakh × ₹5 × 0.8 is ₹48 lakh a month, over 6 weeks that's ₹8 lakh per week. Loans: 3 lakh × ₹40 × 0.4 is also ₹48 lakh, but over 12 weeks it's ₹4 lakh per week. Gold: ₹28.8 lakh over 6 weeks, ₹4.8 lakh per week. Reminders win, about twice loans.",
+      },
+      {
+        skill: "Hypothesis-driven thinking",
+        title: "Handle the twist",
+        prompt: "The CEO pushes back: a competitor just launched instant loans and she's worried users will leave. The partner NBFC also says compliance checks will add 8 weeks to the loan feature. What do you do?",
+        rubric: {
+          strong: "Treats the CEO's fear as a hypothesis to test (are users who look for credit actually leaving for the competitor? check churn and search data). Updates the maths: loans now take about 20 weeks, so roughly ₹2.4 lakh per week and little revenue this year. Recommends building reminders now while starting the NBFC compliance work in parallel, and testing real loan demand cheaply with a waitlist.",
+          weak: "Switches to loans because the CEO said so, with no evidence; or dismisses the competitive threat completely; ignores the extra 8 weeks.",
+        },
+        model:
+          "I'd test the fear first: are users who search for credit actually leaving for the competitor? With compliance, loans take about 20 weeks, roughly ₹2.4 lakh per week, so they'd add little this year. I'd build reminders now, start NBFC compliance in parallel, and run a loan waitlist to measure real demand.",
+      },
+      {
+        skill: "Synthesis and recommendation",
+        title: "Recommend",
+        prompt: "The Head of Product needs a one-minute answer for the leadership meeting. Go.",
+        rubric: {
+          strong: "Leads with the answer: build credit card reminders with autopay. Gives the reasons with numbers (about ₹48 lakh a month expected, about ₹8 lakh per engineering week, twice the alternatives; loans now about 20 weeks with compliance). Addresses the competitor worry (start compliance and a waitlist in parallel). Names a risk (notification fatigue or low autopay take-up) and a next step (launch to 10% of users and track autopay sign-ups).",
+          weak: "Walks through all three features without a clear pick; no numbers; ignores the CEO's concern; no risk or next step.",
+        },
+        model:
+          "Build credit card reminders with autopay. It should add about ₹48 lakh a month for six weeks of work, twice the return per week of loans, which now need about 20 weeks with compliance. To cover the competitor, we start loan compliance and a waitlist in parallel. The risk is notification fatigue, so we launch to 10% of users first and track autopay sign-ups.",
+      },
+    ],
+  },
+  {
+    id: "preppal",
+    title: "Roll out the AI tutor?",
+    company: "PrepPal",
+    sector: "Test-prep app",
+    type: "Experiment readout",
+    domains: ["Product management"],
+    focus: ["Reading exhibits", "Synthesis and recommendation"],
+    minutes: 20,
+    difficulty: "Stretch",
+    intro:
+      "PrepPal is a test-prep app for engineering entrance exams, with 20 lakh monthly users and a paid plan at ₹500 a month. For four weeks, half of new users got a new AI doubt-solver. The Head of Growth loves the early numbers and wants to roll it out to everyone. She wants your view first.",
+    stages: [
+      {
+        skill: "Structuring",
+        title: "Structure the decision",
+        prompt: "How would you decide whether to roll the AI tutor out to everyone?",
+        rubric: {
+          strong: "Names the goal metric (paid conversion and net revenue), supporting metrics (engagement) and guardrails (refunds, answer accuracy, AI cost per user). Checks the test is trustworthy (random split, enough users, long enough to get past novelty). Ends with a decision rule, such as roll out only if net revenue rises and guardrails hold.",
+          weak: "Looks only at engagement or usage; says roll out because AI is the trend; no guardrails; no check on the test itself.",
+        },
+        model:
+          "I'd agree the goal first: more paid users and more net revenue. Engagement is a supporting signal. Guardrails are refunds, answer accuracy and AI cost per user. I'd check the test was a clean random split and long enough to get past novelty, then roll out only if net revenue goes up and the guardrails hold.",
+      },
+      {
+        skill: "Reading exhibits",
+        title: "Read the exhibit",
+        prompt: "Here are the test results. What do they tell you?",
+        exhibit: {
+          title: "Exhibit 1: Four-week test, new users",
+          head: ["Metric", "Control (no AI tutor)", "Test (AI tutor)"],
+          rows: [
+            ["New users in group", "1,00,000", "1,00,000"],
+            ["Daily active, share of new users", "30%", "38%"],
+            ["Paid within 4 weeks", "5.0%", "6.0%"],
+            ["Refund requests, share of paid users", "4%", "10%"],
+            ["Doubts asked per paying user per month", "None", "60"],
+            ["AI cost per doubt", "None", "₹2"],
+          ],
+        },
+        rubric: {
+          strong: "Sees the good news (engagement 30% to 38%, paid conversion up a point, a 20% relative lift) and then the red flags: refunds jumped from 4% to 10% of paid users, and the AI costs about ₹120 per paying user a month (60 × ₹2) against a ₹500 price. Concludes the headline lift may not survive refunds and cost.",
+          weak: "Celebrates engagement and conversion and stops there; misses the refund jump or the AI cost.",
+        },
+        model:
+          "The tutor lifts engagement from 30% to 38% and paid conversion from 5% to 6%. But refunds jumped from 4% to 10% of paid users, and each paying user costs about ₹120 a month in AI (60 doubts × ₹2) on a ₹500 plan. I'd want net revenue before calling it a win.",
+      },
+      {
+        skill: "Quant and maths",
+        title: "Do the maths",
+        prompt: "Per 1,00,000 new users, compare monthly net revenue in each group. A refunded user pays nothing, and the AI cost applies to everyone who paid, including those who later got a refund.",
+        rubric: {
+          strong: "Control: 5,000 paid, 4% refunded = 200, so 4,800 × ₹500 = ₹24 lakh. Test: 6,000 paid, 10% refunded = 600, so 5,400 × ₹500 = ₹27 lakh, minus AI cost 6,000 × 60 × ₹2 = ₹7.2 lakh, leaves ₹19.8 lakh. The tutor loses about ₹4.2 lakh per 1,00,000 new users a month (about 17% less).",
+          weak: "Compares gross revenue only (₹30 lakh vs ₹25 lakh) and calls the test a win; forgets refunds or AI cost; arithmetic slips.",
+        },
+        model:
+          "Control: 5,000 pay, 200 get refunds, so 4,800 × ₹500 is ₹24 lakh. Test: 6,000 pay, 600 get refunds, so 5,400 × ₹500 is ₹27 lakh, minus ₹7.2 lakh of AI cost (6,000 × 60 × ₹2), leaving ₹19.8 lakh. The tutor is about ₹4.2 lakh worse per 1,00,000 new users each month.",
+      },
+      {
+        skill: "Hypothesis-driven thinking",
+        title: "Handle the twist",
+        prompt: "The team pulls refund reasons: 70% of refunds in the test group cite wrong answers from the AI tutor, mostly on physics numericals. The Head of Growth asks: can we fix this and still launch?",
+        rubric: {
+          strong: "Forms a clear hypothesis: refunds come from wrong answers in one area, so fix accuracy there (route physics numericals to human experts or add checking, show when the tutor is unsure). Also spots that even if refunds fall back to 4%, net revenue would be about ₹21.6 lakh (5,760 × ₹500 minus ₹7.2 lakh), still below ₹24 lakh, so AI cost per paying user must also come down by about a third (a cheaper model for easy doubts, a cap on free doubts, cached answers). Proposes a second test with refund and cost guardrails before any full rollout.",
+          weak: "Kills the feature outright; or launches anyway hoping refunds fall; fixes accuracy but misses that cost is also a problem.",
+        },
+        model:
+          "My hypothesis is that wrong physics answers drive the refunds, so I'd route physics numericals to human experts and flag low-confidence answers. But even at 4% refunds, net revenue is about ₹21.6 lakh, still below ₹24 lakh, so AI cost must fall about a third too: a cheaper model for easy doubts or a monthly cap. Then I'd re-test before any rollout.",
+      },
+      {
+        skill: "Synthesis and recommendation",
+        title: "Recommend",
+        prompt: "Give the Head of Growth your recommendation in under a minute.",
+        rubric: {
+          strong: "Leads with a clear call: don't roll out to everyone yet. Reasons with numbers: conversion rises 5% to 6%, but refunds 4% to 10% and about ₹120 of AI cost per paying user mean about ₹4.2 lakh less net revenue per 1,00,000 new users a month. Plan: fix physics accuracy, cut AI cost per user by about a third, re-test for four weeks with refund and cost guardrails. Names a risk (a competitor ships first, or the lift was partly novelty) and a next step.",
+          weak: "Says yes because engagement rose, or no without numbers; no plan to fix it; no risks.",
+        },
+        model:
+          "Don't roll out yet. The tutor lifts conversion from 5% to 6%, but refunds jump to 10% and AI costs ₹120 per payer, so we earn about ₹4.2 lakh less per 1,00,000 new users each month. Fix physics accuracy, cut AI cost per user by a third, then re-test for four weeks with refund and cost guardrails. The risk is a competitor launching first, so we move fast.",
+      },
+    ],
+  },
+  {
+    id: "saffron",
+    title: "Your first 90 days as GM",
+    company: "Saffron Foods",
+    sector: "Packaged spices (FMCG)",
+    type: "Business unit turnaround",
+    domains: ["General management", "Consulting"],
+    focus: ["Hypothesis-driven thinking", "Synthesis and recommendation"],
+    minutes: 20,
+    difficulty: "Stretch",
+    intro:
+      "You've just been made general manager of Saffron Foods' ₹600 crore spices business, which sells packaged spices and masala mixes across North India, mostly through kirana stores. Revenue has been flat for two years while the category grew about 10% a year. The CEO wants your plan within 90 days.",
+    stages: [
+      {
+        skill: "Structuring",
+        title: "Structure the problem",
+        prompt: "How would you work out why the business is stuck while the category grows?",
+        rubric: {
+          strong: "Breaks revenue growth down by where (channels: kirana, modern trade, e-commerce and quick commerce; regions), what (products and pack sizes), and why (distribution reach, price points, retailer margins, marketing, competition). Sets a goal (at least grow with the category) and includes people: talking to the sales team, distributors and retailers in the first weeks.",
+          weak: "A generic SWOT; jumps straight to an ad campaign or price cut; looks only at the total revenue number.",
+        },
+        model:
+          "I'd break growth down by channel, region and product to find where we're losing ground, then ask why: distribution reach, price points, retailer margins, marketing or a new competitor. In the first weeks I'd spend time with the sales team, distributors and kirana owners. The goal is to at least grow with the category.",
+      },
+      {
+        skill: "Reading exhibits",
+        title: "Read the exhibit",
+        prompt: "Here's revenue by channel. What stands out?",
+        exhibit: {
+          title: "Exhibit 1: Revenue by channel",
+          head: ["Channel", "Share of category sales", "Category growth per year", "Saffron revenue, 2 years ago", "Saffron revenue, now"],
+          rows: [
+            ["Kirana stores", "70%", "5%", "₹540 crore", "₹510 crore"],
+            ["Modern trade", "18%", "14%", "₹45 crore", "₹54 crore"],
+            ["E-commerce and quick commerce", "12%", "40%", "₹15 crore", "₹36 crore"],
+            ["Total", "100%", "About 10%", "₹600 crore", "₹600 crore"],
+          ],
+        },
+        rubric: {
+          strong: "Notices the flat total hides two opposite stories. Kirana is 85% of Saffron's revenue (₹510 of ₹600 crore) and fell ₹30 crore while that channel grew 5% a year, so Saffron is losing share in its core channel. Online more than doubled (₹15 to ₹36 crore) but is only 6% of revenue. Concludes the core problem is kirana, not a lack of online presence.",
+          weak: "Says revenue is flat and moves on; focuses only on fast online growth and misses the kirana decline.",
+        },
+        model:
+          "The flat total hides two stories. Kirana is 85% of our revenue and fell ₹30 crore while that channel grew 5% a year, so we're losing share where it matters most. Online more than doubled, but it's only 6% of revenue. The core problem looks like kirana, not online.",
+      },
+      {
+        skill: "Quant and maths",
+        title: "Do the maths",
+        prompt: "If Saffron had simply grown with the category in each channel over the two years, what would revenue be today? Where is the gap?",
+        rubric: {
+          strong: "Kirana: ₹540 crore × 1.05 × 1.05 ≈ ₹595 crore. Modern trade: ₹45 crore × 1.14 × 1.14 ≈ ₹58.5 crore. Online: ₹15 crore × 1.4 × 1.4 ≈ ₹29.4 crore. Total ≈ ₹683 crore, so the gap is about ₹83 crore. Nearly all of it is kirana (about ₹85 crore behind); modern trade is slightly behind and online is actually ahead of the category.",
+          weak: "Applies 10% to the total only (₹726 crore) and misses the channel story; compounding errors; no conclusion on where the gap sits.",
+        },
+        model:
+          "Kirana: 540 × 1.05 × 1.05 is about ₹595 crore. Modern trade: 45 × 1.14² is about ₹58.5 crore. Online: 15 × 1.4² is about ₹29.4 crore. That's about ₹683 crore, so we're roughly ₹83 crore short. Almost all of it is kirana, about ₹85 crore behind. Online is actually ahead of the category.",
+      },
+      {
+        skill: "Hypothesis-driven thinking",
+        title: "Handle the twist",
+        prompt: "Distributors tell you a rival launched ₹10 sachets two years ago and gives kirana owners 2 points more margin. Your sales head wants a 10% price cut across the range. The business makes a 12% operating margin. What do you do?",
+        rubric: {
+          strong: "Forms a hypothesis: Saffron is losing kirana because of small price-point packs and retailer margin, not its shelf price. Sizes the price cut: 10% of ₹600 crore is about ₹60 crore at the same volume, against operating profit of about ₹72 crore (12% × ₹600 crore), and it doesn't fix the cause. Proposes launching ₹10 sachets and adding 2 points of retailer margin on key products in kirana (about ₹10 crore on ₹510 crore), tested in one state first, with the sales head owning the pilot.",
+          weak: "Accepts the across-the-board price cut; ignores the competitor's sachets; overrules the sales head without bringing them along.",
+        },
+        model:
+          "My hypothesis is we're losing kirana on pack size and retailer margin, not shelf price. A 10% cut would cost about ₹60 crore of our roughly ₹72 crore operating profit and still miss the cause. Instead I'd launch ₹10 sachets and add 2 points of kirana margin on key products, about ₹10 crore, piloted in one state with the sales head owning it.",
+      },
+      {
+        skill: "Synthesis and recommendation",
+        title: "Recommend",
+        prompt: "The CEO asks for your 90-day plan in one minute.",
+        rubric: {
+          strong: "Leads with the diagnosis: flat because Saffron is about ₹85 crore behind the category in kirana, likely lost to a rival's ₹10 sachets and better retailer margins, not because of online (which is ahead). Plan: launch sachets, add 2 points of margin on key kirana products (about ₹10 crore), pilot in one state for 8 to 12 weeks led by the sales head, keep investing online. Rejects the blanket price cut (about ₹60 crore of ₹72 crore profit). Names a risk (sachets cannibalising larger packs) and how to track the pilot (rate of sale, stores stocking).",
+          weak: "No clear diagnosis; a long list of ideas; agrees to the price cut; no numbers, risks or next steps.",
+        },
+        model:
+          "We're flat because we're about ₹85 crore behind the category in kirana, likely lost to a rival's ₹10 sachets and better retailer margin. Online is fine. In 90 days we launch sachets and add 2 points of kirana margin on key products, about ₹10 crore, piloted in one state with the sales head leading. We won't do a blanket price cut, which would wipe out most of our ₹72 crore profit. The risk is sachets eating into bigger packs, so we'll track rate of sale closely.",
+      },
+    ],
+  },
 ];
 
 export function publicCase(c) {
   return {
     id: c.id, title: c.title, company: c.company, sector: c.sector, type: c.type,
-    tracks: c.tracks, minutes: c.minutes, difficulty: c.difficulty, intro: c.intro,
+    domains: c.domains || [], focus: c.focus || [], minutes: c.minutes, difficulty: c.difficulty, intro: c.intro,
+    custom: !!c.custom,
     stages: c.stages.map((s) => ({ skill: s.skill, title: s.title, prompt: s.prompt, exhibit: s.exhibit || null })),
   };
 }
 
 export function findCase(id) {
   return CASES.find((c) => c.id === id) || null;
+}
+
+// The case behind an attempt: a library case, or the AI-built case stored on the attempt itself.
+export function caseForAttempt(attempt) {
+  if (attempt && attempt.custom_case && attempt.custom_case.stages) return { ...attempt.custom_case, id: "custom", custom: true };
+  return findCase(attempt && attempt.case_id);
 }
